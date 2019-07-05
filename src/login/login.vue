@@ -52,7 +52,7 @@
                 <div class="page-login--content-footer">
 
                     <p class="page-login--content-footer-copyright">
-                        <div>欢迎使用</div>
+                        @司机宝
                     </p>
 
                 </div>
