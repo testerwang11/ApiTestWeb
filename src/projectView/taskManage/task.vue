@@ -157,7 +157,7 @@
                             <el-input v-model="taskData.toEmail">
                             </el-input>
                         </el-form-item>
-                        <el-form-item label="发件人邮箱" :label-width="taskData.formLabelWidth">
+                        <!--<el-form-item label="发件人邮箱" :label-width="taskData.formLabelWidth">
                             <el-input v-model="taskData.SendEmail">
                             </el-input>
                         </el-form-item>
@@ -165,7 +165,7 @@
                                       prop="desc">
                             <el-input v-model="taskData.password" type="password">
                             </el-input>
-                        </el-form-item>
+                        </el-form-item>-->
 
                         <el-form-item label="时间配置" :label-width="taskData.formLabelWidth">
                             <el-input v-model="taskData.timeConfig"
@@ -300,9 +300,9 @@
                 this.taskData.id = '';
                 this.taskData.taskType = '';
                 this.taskData.toEmail = '';
-                this.taskData.SendEmail = '';
+                //this.taskData.SendEmail = '';
                 this.taskData.timeConfig = '';
-                this.taskData.password = '';
+                //this.taskData.password = '';
                 this.form.set = [];
                 this.form.case = [];
                 this.taskData.num = '';
@@ -319,9 +319,9 @@
                     'name': this.taskData.name,
                     'taskType': this.taskData.taskType,
                     'toEmail': this.taskData.toEmail,
-                    'sendEmail': this.taskData.SendEmail,
+                    //'sendEmail': this.taskData.SendEmail,
                     'timeConfig': this.taskData.timeConfig,
-                    'password': this.taskData.password,
+                    //'password': this.taskData.password,
                 }).then((response) => {
 
                         if (response.data['status'] === 0) {
@@ -350,8 +350,8 @@
                         // this.form.projectName = response.data['data']['project_name'];
                         this.taskData.taskType = response.data['data']['task_type'];
                         this.taskData.toEmail = response.data['data']['task_to_email_address'];
-                        this.taskData.SendEmail = response.data['data']['task_send_email_address'];
-                        this.taskData.password = response.data['data']['password'];
+                        //this.taskData.SendEmail = response.data['data']['task_send_email_address'];
+                        //this.taskData.password = response.data['data']['password'];
                         this.taskData.num = response.data['data']['num'];
                         this.taskData.projectName = this.form.projectName;
                         this.taskData.id = id;
