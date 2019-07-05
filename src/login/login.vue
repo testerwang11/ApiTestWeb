@@ -21,7 +21,7 @@
                         <div class="page-login--content-footer">
                             <p class="page-login--content-footer-copyright"
                                style="font-size:26px;font-weight:700;font-family:KaiTi">
-                                测试平台
+                                司机宝测试平台
                             </p>
                         </div>
                         <el-card shadow="never">
@@ -52,8 +52,7 @@
                 <div class="page-login--content-footer">
 
                     <p class="page-login--content-footer-copyright">
-                        <a href="https://github.com/pencil1/ApiTestWeb" target="view_window">ApiTestWeb 作品</a> |
-                        <a href="https://github.com/pencil1/ApiTestManage" target="view_window">ApiTestManage 作品</a>
+                        <div>欢迎使用</div>
                     </p>
 
                 </div>
