@@ -52,6 +52,8 @@
                            v-if="form.config !== null && form.config !== '' "
                            @click.native="$refs.configEditFunc.editSceneConfig(form.config.configId)">配置修改
                 </el-button>
+                <el-button type="primary" icon="el-icon-search" @click.native="handleCurrentChange(1)">移动</el-button>
+
             </el-form-item>
         </el-form>
         <el-tabs v-model="numTab" class="table_padding" @tab-click="tabChange">
