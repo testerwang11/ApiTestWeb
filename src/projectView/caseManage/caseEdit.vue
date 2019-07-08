@@ -172,10 +172,11 @@
                                             <el-switch v-model="caseData.apiCases[index]['status']">
                                             </el-switch>
                                         </el-col>
-                                        <el-col :span="5" style="padding-top: 3px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;text-align:center">
-<!--                                            <el-input v-model="caseData.apiCases[index]['case_name']"-->
-<!--                                                      size="mini">-->
-<!--                                            </el-input>-->
+                                        <el-col :span="5"
+                                                style="padding-top: 3px;overflow: hidden;text-overflow: ellipsis;white-space: nowrap;text-align:center">
+                                            <!--                                            <el-input v-model="caseData.apiCases[index]['case_name']"-->
+                                            <!--                                                      size="mini">-->
+                                            <!--                                            </el-input>-->
                                             {{ _data.case_name }}
                                         </el-col>
                                         <el-col :span="4"
@@ -275,7 +276,8 @@
                                                  class="list-complete-item">
                                                 <el-row :gutter="24">
                                                     <el-col :span="1">
-                                                        <el-radio v-model="radio" @change="addEvent(index)" :label="index">
+                                                        <el-radio v-model="radio" @change="addEvent(index)"
+                                                                  :label="index">
                                                             {{null}}
                                                         </el-radio>
                                                         <!--<el-checkbox @change="addEvent" true-label="1" false-label="0">-->
@@ -345,7 +347,6 @@
 <script>
     import apiMsgDataEdit from './apiMsgDataEdit.vue'
     import draggable from 'vuedraggable'
-
     export default {
         components: {
             draggable,
@@ -359,7 +360,7 @@
                 ApiMsgData: [], // 接口信息里面的表格数据
                 mainWidth: '50%',
                 radio: '',
-                tabName:'first',
+                tabName: 'first',
                 showApiDataStatus: true,
                 stepSpan: 24,
                 draggableOptions: {
@@ -420,7 +421,6 @@
                 if (this.showApiDataStatus) {
                     this.mainWidth = '50%';
                     this.stepSpan = 24
-
                 } else {
                     this.mainWidth = '80%';
                     this.stepSpan = 12;
@@ -444,9 +444,7 @@
                 this.form.projectName = this.projectName;
                 this.form.apiMesProjectName = this.projectName;
                 this.form.sceneVariableProjectName = this.projectName;
-
             },
-
             initCaseData() {
                 if (this.projectName) {
                     this.synchronousData();
@@ -571,7 +569,6 @@
                     this.caseData.apiCases.splice(i, 1);
                 }
             },
-
             handleCurrentCase(val) {
                 this.apiMsgPage.currentPage = val;
                 this.findApiMsg()
@@ -580,7 +577,6 @@
                 this.apiMsgPage.sizePage = val;
                 this.findApiMsg()
             },
-
             findApiMsg() {
                 this.radio = false;
                 this.$axios.post(this.$api.findApiApi, {
@@ -683,6 +679,20 @@
                 )
             },
         },
+        computed: {
+            monitorApiCases() {
+                return this.caseData.apiCases;
+            }
+        },
+        watch: {
+            monitorApiCases: {
+                handler: function () {
+                    if(this.$refs.apiMessageEditFunc){
+                        this.$refs.apiMessageEditFunc.paramVisible = false
+                    }
+                }
+            }
+            },
         mounted() {
         },
     }
@@ -695,6 +705,4 @@
         border-radius: 4px;
         background-color: rgb(250, 250, 250);
     }
-
-
 </style>

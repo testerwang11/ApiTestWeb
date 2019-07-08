@@ -30,6 +30,7 @@ const delApiApi = '/api/apiMsg/del';
 const runApiApi = '/api/apiMsg/run';
 const addApiApi = '/api/apiMsg/add';
 const editAndCopyApiApi = '/api/apiMsg/editAndCopy';
+const moveApiApi = "/api/apiMsg/move"
 
 const findCaseSetApi = '/api/caseSet/find';
 const delCaseSetApi = '/api/caseSet/del';
@@ -134,6 +135,7 @@ export default {
     runApiApi,
     addApiApi,
     editAndCopyApiApi,
+    moveApiApi,
 
     fileUploadingApi,
     importApiApi,

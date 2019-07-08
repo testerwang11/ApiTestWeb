@@ -3,8 +3,6 @@
 
         <el-dialog title="配置管理" :visible.sync="configData.modelFormVisible" width="50%">
             <el-tabs value="second">
-
-
                 <el-tab-pane label="基础信息" name="second" style="margin-top: 10px">
                         <el-form :inline="true"  size="small" >
                             <el-form-item label="项目名称">

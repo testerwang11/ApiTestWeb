@@ -52,7 +52,7 @@
                            v-if="form.config !== null && form.config !== '' "
                            @click.native="$refs.configEditFunc.editSceneConfig(form.config.configId)">配置修改
                 </el-button>
-                <el-button type="primary" icon="el-icon-search" @click.native="handleCurrentChange(1)">移动</el-button>
+                <el-button type="primary" @click.native="handleMove()">移动</el-button>
 
             </el-form-item>
         </el-form>
@@ -212,16 +212,16 @@
                 :projectName="form.projectName"
                 :moduleData="form.module"
                 ref="importApiFunc">
-
         </importApi>
+
+        <moveApi ref="moveApiFunc">
+        </moveApi>
 
         <result ref="resultFunc">
         </result>
 
         <errorView ref="errorViewFunc">
         </errorView>
-
-
         <configEdit
                 :proModelData="proModelData"
                 :projectName="form.projectName"
@@ -234,6 +234,7 @@
 <script>
     import result from './result.vue'
     import importApi from './importApi.vue'
+    import moveApi from './moveApi.vue'
     import apiEdit from './apiEdit.vue'
     import errorView from '../common/errorView.vue'
     import configEdit from '../config/configEdit.vue'
@@ -245,6 +246,7 @@
             apiEdit: apiEdit,
             errorView: errorView,
             configEdit: configEdit,
+            moveApi: moveApi,
 
         },
         name: 'caseManage',
@@ -339,6 +341,54 @@
                 this.apiMsgPage.currentPage = val;
                 this.findApiMsg();
             },
+            handleMove() {
+                //移动用例
+                const _selectData = this.$refs.apiMultipleTable.selection
+                var ids = []
+                _selectData.forEach(item => {
+                    ids.push(item.apiMsgId)
+                })
+                const _msg = '你选中了 [ ' + ids + ' ] 条数据.'
+                this.$notify.info({
+                    title: '消息',
+                    message: _msg
+                });
+                if (ids.length == 0) {
+                    this.$message({
+                        showClose: true,
+                        message: '请选择需要移动的用例！',
+                        type: 'warning',
+                    });
+                    return
+                }
+                this.$refs.moveApiFunc.moduleSelect(this.form.projectName, ids);
+                //this.$refs.moveApiFunc.move(ids);
+                /*this.$axios.post(this.$api.findModuleApi, {
+                    'projectName': "无车承运",
+                    "page": "1",
+                    "sizePage": "30"
+                }).then((response) => {
+                        this.configData.name = response.data['data']['name'];
+                        this.configData.num = response.data['data']['num'];
+                        this.configData.variable = response.data['data']['variables'];
+                        this.configData.funcAddress = response.data['data']['func_address'];
+                        this.configData.projectName = this.projectName;
+                    }
+                )
+
+                this.$axios.post(this.$api.moveApiApi, {
+                    'apiMsgIds': ids,
+                    'project_id': 1,
+                    'module_id': 2,
+                }).then((response) => {
+                        if (this.messageShow(this, response)) {
+                            this.ApiMsgTableData = response.data['msg'];
+                            this.apiMsgPage.total = response.data['total'];
+                        }
+                    }
+                )*/
+
+            },
             handleSizeChange(val) {
                 this.apiMsgPage.sizePage = val;
                 this.findApiMsg();
@@ -385,6 +435,7 @@
                     this.$refs.apiFunc.initApiMsgData();
                 }, 0)
             },
+
 
             editCopyApi(apiMsgId, status) {
                 //  编辑或者复制接口信息
@@ -557,8 +608,6 @@
                     }
                 )
             },
-
-
         },
 
         mounted() {
