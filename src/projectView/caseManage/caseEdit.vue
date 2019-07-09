@@ -347,6 +347,7 @@
 <script>
     import apiMsgDataEdit from './apiMsgDataEdit.vue'
     import draggable from 'vuedraggable'
+
     export default {
         components: {
             draggable,
@@ -421,6 +422,7 @@
                 if (this.showApiDataStatus) {
                     this.mainWidth = '50%';
                     this.stepSpan = 24
+
                 } else {
                     this.mainWidth = '80%';
                     this.stepSpan = 12;
@@ -444,7 +446,9 @@
                 this.form.projectName = this.projectName;
                 this.form.apiMesProjectName = this.projectName;
                 this.form.sceneVariableProjectName = this.projectName;
+
             },
+
             initCaseData() {
                 if (this.projectName) {
                     this.synchronousData();
@@ -569,6 +573,7 @@
                     this.caseData.apiCases.splice(i, 1);
                 }
             },
+
             handleCurrentCase(val) {
                 this.apiMsgPage.currentPage = val;
                 this.findApiMsg()
@@ -577,6 +582,7 @@
                 this.apiMsgPage.sizePage = val;
                 this.findApiMsg()
             },
+
             findApiMsg() {
                 this.radio = false;
                 this.$axios.post(this.$api.findApiApi, {
@@ -690,6 +696,8 @@
                     if(this.$refs.apiMessageEditFunc){
                         this.$refs.apiMessageEditFunc.paramVisible = false
                     }
+
+
                 }
             }
             },
@@ -705,4 +713,6 @@
         border-radius: 4px;
         background-color: rgb(250, 250, 250);
     }
+
+
 </style>
