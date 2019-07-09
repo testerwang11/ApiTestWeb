@@ -90,7 +90,7 @@ const routes = [
             {
                 path: 'reportShow',
                 meta: {
-                    requireAuth: true,
+                    requireAuth: false,
                 },
                 components: {
                     Header: reportHeader,
