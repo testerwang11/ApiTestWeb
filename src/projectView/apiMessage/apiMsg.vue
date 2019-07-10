@@ -165,6 +165,9 @@
                         <el-button @click="cancelSelection()" size="mini" style="position: absolute;margin-top: 2px;">
                             取消选择
                         </el-button>
+                        <el-button @click="delSelection()" size="mini" style="position: absolute;margin-top: 2px;">
+                            批量删除
+                        </el-button>
                         <div class="pagination">
                             <el-pagination
                                     @current-change="handleCurrentChange"
@@ -495,6 +498,16 @@
             cancelSelection() {
                 //  清除接口选择
                 this.$refs.apiMultipleTable.clearSelection();
+            },
+
+            delSelection() {
+                //  删除选择的接口
+                const _selectData = this.$refs.apiMultipleTable.selection
+                var ids = []
+                _selectData.forEach(item => {
+                    ids.push(item.apiMsgId)
+                    this.delApi(item.apiMsgId)
+                })
             },
 
             initProjectChoice() {
