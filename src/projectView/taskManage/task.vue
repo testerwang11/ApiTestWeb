@@ -172,6 +172,10 @@
                                       placeholder="second minute hour day month day_of_week(0 0 12 * * ? 每天中午12点触发)">
                             </el-input>
                         </el-form-item>
+                         <el-form-item label="通知策略" :label-width="taskData.formLabelWidth">
+                            <el-radio v-model="taskData.noticeType" label="1">全部通知</el-radio>
+                            <el-radio v-model="taskData.noticeType" label="2">失败通知</el-radio>
+                         </el-form-item>
                     </el-form>
                 </el-tab-pane>
 
@@ -216,8 +220,6 @@
                     projectName: '',
                     modelName: '',
                     taskName: '',
-
-
                 },
                 taskData: {
                     id: '',
@@ -230,6 +232,7 @@
                     SendEmail: '',
                     timeConfig: '',
                     password: '',
+                    noticeType: '1',
                     formLabelWidth: '90px',
                 }
             }
@@ -319,6 +322,7 @@
                     'name': this.taskData.name,
                     'taskType': this.taskData.taskType,
                     'toEmail': this.taskData.toEmail,
+                    'noticeType':this.taskData.noticeType,
                     //'sendEmail': this.taskData.SendEmail,
                     'timeConfig': this.taskData.timeConfig,
                     //'password': this.taskData.password,
@@ -356,6 +360,8 @@
                         this.taskData.projectName = this.form.projectName;
                         this.taskData.id = id;
                         this.form.set = response.data['data']['set_ids'];
+                        this.taskData.noticeType = response.data['data'][''];
+
 
                         if (response.data['data']['set_ids'].length === 1) {
                             // 当用例集只有1个时，赋值set_id，让用例下拉框有数据显示
