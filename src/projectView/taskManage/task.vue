@@ -309,6 +309,7 @@
                 this.form.set = [];
                 this.form.case = [];
                 this.taskData.num = '';
+                this.taskData.noticeType = '1';
                 this.taskData.modelFormVisible = true;
 
             },
@@ -327,7 +328,6 @@
                     'timeConfig': this.taskData.timeConfig,
                     //'password': this.taskData.password,
                 }).then((response) => {
-
                         if (response.data['status'] === 0) {
                             this.$message({
                                 showClose: true,
@@ -342,7 +342,6 @@
                                 type: 'success',
                             });
                             this.findTask();
-
                         }
                     }
                 )
@@ -360,9 +359,7 @@
                         this.taskData.projectName = this.form.projectName;
                         this.taskData.id = id;
                         this.form.set = response.data['data']['set_ids'];
-                        this.taskData.noticeType = response.data['data'][''];
-
-
+                        this.taskData.noticeType = response.data['data']['notice_type'];
                         if (response.data['data']['set_ids'].length === 1) {
                             // 当用例集只有1个时，赋值set_id，让用例下拉框有数据显示
                             this.form.set_id = response.data['data']['set_ids'][0]['id']
