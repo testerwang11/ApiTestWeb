@@ -40,29 +40,31 @@
                         </el-form-item>
                     </el-form>
 
-                    <hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -5px"/>
+                    <!--<hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -5px"/>-->
+                    <hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -10px"/>
+
                     <el-tabs v-model="configChoice" type="card">
                         <el-tab-pane label="测试环境" name="first">
                             <el-table :data="config.configTest" size="mini" stripe :show-header="false">
-                                <el-table-column label="Key" header-align="center" minWidth="100">
+                                <el-table-column property="Key" label="Key" header-align="center" minWidth="100">
                                     <template slot-scope="scope">
                                         <el-input v-model="scope.row.key" size="mini" placeholder="key">
                                         </el-input>
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="Value" header-align="center" minWidth="200">
+                                <el-table-column property="Value" label="Value" header-align="center" minWidth="200">
                                     <template slot-scope="scope">
                                         <el-input v-model="scope.row.value" size="mini" placeholder="Value">
                                         </el-input>
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="备注" header-align="center" minWidth="80">
+                                <el-table-column property="备注" label="备注" header-align="center" minWidth="80">
                                     <template slot-scope="scope">
                                         <el-input v-model="scope.row.remark" size="mini" placeholder="备注">
                                         </el-input>
                                     </template>
                                 </el-table-column>
-                                <el-table-column label="操作" header-align="center" width="80">
+                                <el-table-column property="操作" label="操作" header-align="center" width="80">
                                     <template slot-scope="scope">
                                         <el-button type="danger" icon="el-icon-delete" size="mini"
                                                    @click.native="delConfigVariable(scope.$index)">删除
