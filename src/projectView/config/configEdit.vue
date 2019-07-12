@@ -149,7 +149,7 @@
 
             },
             addConfigVariable() {
-                if (this.configChoice === 'second') {
+                if (this.configChoice === 'first') {
                     //this.configData.variable.push({key: null, value: null, remark: null});
                     this.config.configTest.push({value: ''});
                 }
@@ -157,7 +157,7 @@
                     //this.configData.variable.push({key: null, value: null, remark: null});
                     this.config.configTestDevelop.push({value: ''});
                 }
-
+                this.config.configTest.push({value: ''});
             },
             delConfigVariable(i) {
                 this.configData.variable.splice(i, 1);
