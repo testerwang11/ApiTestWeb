@@ -41,8 +41,7 @@
                     </el-form>
 
                     <hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -5px"/>
-
-                    <el-table :data="configData.variable" stripe :show-header="false">
+                    <el-tabs v-model="configChoice" type="card">
                         <el-tab-pane label="测试环境" name="first">
                             <el-table :data="config.configTest" size="mini" stripe :show-header="false">
                                 <el-table-column label="Key" header-align="center" minWidth="100">
@@ -101,66 +100,7 @@
                                 </el-table-column>
                             </el-table>
                         </el-tab-pane>
-                        <el-tab-pane label="线上环境" name="third">
-                            <el-table :data="config.configTestProduction" size="mini" stripe :show-header="false">
-                                <el-table-column label="Key" header-align="center" minWidth="100">
-                                    <template slot-scope="scope">
-                                        <el-input v-model="scope.row.key" size="mini" placeholder="key">
-                                        </el-input>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="Value" header-align="center" minWidth="200">
-                                    <template slot-scope="scope">
-                                        <el-input v-model="scope.row.value" size="mini" placeholder="Value">
-                                        </el-input>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="备注" header-align="center" minWidth="80">
-                                    <template slot-scope="scope">
-                                        <el-input v-model="scope.row.remark" size="mini" placeholder="备注">
-                                        </el-input>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="操作" header-align="center" width="80">
-                                    <template slot-scope="scope">
-                                        <el-button type="danger" icon="el-icon-delete" size="mini"
-                                                   @click.native="delConfigVariable(scope.$index)">删除
-                                        </el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                        </el-tab-pane>
-                        <el-tab-pane label="备用环境" name="fourth">
-                            <el-table :data="config.configTestStandby" size="mini" stripe :show-header="false">
-
-                                <el-table-column label="Key" header-align="center" minWidth="100">
-                                    <template slot-scope="scope">
-                                        <el-input v-model="scope.row.key" size="mini" placeholder="key">
-                                        </el-input>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="Value" header-align="center" minWidth="200">
-                                    <template slot-scope="scope">
-                                        <el-input v-model="scope.row.value" size="mini" placeholder="Value">
-                                        </el-input>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="备注" header-align="center" minWidth="80">
-                                    <template slot-scope="scope">
-                                        <el-input v-model="scope.row.remark" size="mini" placeholder="备注">
-                                        </el-input>
-                                    </template>
-                                </el-table-column>
-                                <el-table-column label="操作" header-align="center" width="80">
-                                    <template slot-scope="scope">
-                                        <el-button type="danger" icon="el-icon-delete" size="mini"
-                                                   @click.native="delConfigVariable(scope.$index)">删除
-                                        </el-button>
-                                    </template>
-                                </el-table-column>
-                            </el-table>
-                        </el-tab-pane>
-                    </el-table>
+                    </el-tabs>
                 </el-tab-pane>
             </el-tabs>
             <div slot="footer" class="dialog-footer">
