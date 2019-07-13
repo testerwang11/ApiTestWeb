@@ -67,7 +67,7 @@
                                 <el-table-column property="操作" label="操作" header-align="center" width="80">
                                     <template slot-scope="scope">
                                         <el-button type="danger" icon="el-icon-delete" size="mini"
-                                                   @click.native="delConfigVariable(scope.$index)">删除
+                                                   @click.native="delConfigVariable('test',scope.$index)">删除
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -96,7 +96,65 @@
                                 <el-table-column label="操作" header-align="center" width="80">
                                     <template slot-scope="scope">
                                         <el-button type="danger" icon="el-icon-delete" size="mini"
-                                                   @click.native="delConfigVariable(scope.$index)">删除
+                                                   @click.native="delConfigVariable('develop',scope.$index)">删除
+                                        </el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </el-tab-pane>
+                        <el-tab-pane label="线上环境" name="third">
+                            <el-table :data="config.configTestDevelop" size="mini" stripe :show-header="false">
+                                <el-table-column label="Key" header-align="center" minWidth="100">
+                                    <template slot-scope="scope">
+                                        <el-input v-model="scope.row.key" size="mini" placeholder="key">
+                                        </el-input>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="Value" header-align="center" minWidth="200">
+                                    <template slot-scope="scope">
+                                        <el-input v-model="scope.row.value" size="mini" placeholder="Value">
+                                        </el-input>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="备注" header-align="center" minWidth="80">
+                                    <template slot-scope="scope">
+                                        <el-input v-model="scope.row.remark" size="mini" placeholder="备注">
+                                        </el-input>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="操作" header-align="center" width="80">
+                                    <template slot-scope="scope">
+                                        <el-button type="danger" icon="el-icon-delete" size="mini"
+                                                   @click.native="delConfigVariable('production', scope.$index)">删除
+                                        </el-button>
+                                    </template>
+                                </el-table-column>
+                            </el-table>
+                        </el-tab-pane>
+                        <el-tab-pane label="备用环境" name="fourth">
+                            <el-table :data="config.configTestDevelop" size="mini" stripe :show-header="false">
+                                <el-table-column label="Key" header-align="center" minWidth="100">
+                                    <template slot-scope="scope">
+                                        <el-input v-model="scope.row.key" size="mini" placeholder="key">
+                                        </el-input>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="Value" header-align="center" minWidth="200">
+                                    <template slot-scope="scope">
+                                        <el-input v-model="scope.row.value" size="mini" placeholder="Value">
+                                        </el-input>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="备注" header-align="center" minWidth="80">
+                                    <template slot-scope="scope">
+                                        <el-input v-model="scope.row.remark" size="mini" placeholder="备注">
+                                        </el-input>
+                                    </template>
+                                </el-table-column>
+                                <el-table-column label="操作" header-align="center" width="80">
+                                    <template slot-scope="scope">
+                                        <el-button type="danger" icon="el-icon-delete" size="mini"
+                                                   @click.native="delConfigVariable('standby',scope.$index)">删除
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -122,14 +180,18 @@
                 configChoice: 'first',
                 config: {
                     configTest: [{value: ''}],
-                    configTestDevelop: [{value: ''}],
-                    configTestProduction: [{value: ''}],
-                    configTestStandby: [{value: ''}],
+                    configDevelop: [{value: ''}],
+                    configProduction: [{value: ''}],
+                    configStandby: [{value: ''}],
                 },
                 configData: {
                     funcAddress: Array(),
                     id: null,
                     num: null,
+                    config: null,
+                    configTwo: null,
+                    configThree: null,
+                    configFour: null,
                     modelFormVisible: false,
                     projectName: null,
                     name: null,
@@ -141,26 +203,62 @@
             initConfigData() {
                 this.configData.name = null;
                 this.configData.projectName = this.projectName;
+                this.config.configTest = Array();
+                this.config.configDevelop = Array();
+                this.config.configProduction = Array();
+                this.config.configStandby = Array();
                 this.configData.funcAddress = Array();
                 this.configData.id = null;
                 this.configData.num = null;
-                this.configData.variable = [{key: null, value: null, remark: null}];
                 this.configData.modelFormVisible = true;
 
             },
             addConfigVariable() {
                 if (this.configChoice === 'first') {
-                    //this.configData.variable.push({key: null, value: null, remark: null});
                     this.config.configTest.push({value: ''});
                 }
                 if (this.configChoice === 'second') {
-                    //this.configData.variable.push({key: null, value: null, remark: null});
-                    this.config.configTestDevelop.push({value: ''});
+                    this.config.configDevelop.push({value: ''});
                 }
-                this.config.configTest.push({value: ''});
+                if (this.configChoice === 'third') {
+                    this.config.configProduction.push({value: ''});
+                }
+                if (this.configChoice === 'fourth') {
+                    this.config.configStandby.push({value: ''});
+                }
             },
-            delConfigVariable(i) {
-                this.configData.variable.splice(i, 1);
+            delConfigVariable(type, i) {
+                if (type === 'test') {
+                    this.config.configTest.splice(i, 1);
+                } else if (type === 'develop') {
+                    this.config.configDevelop.splice(i, 1);
+                } else if (type === 'production') {
+                    this.config.configProduction.splice(i, 1);
+                } else if (type === 'standby') {
+                    this.config.configStandby.splice(i, 1);
+                }
+            },
+            dealConfigList(data) {
+                // 把[{value:xxx1},{value:xxx2}] 转为 [xxx1,xxx2]111
+                let config = Array();
+                for (let i = 0; i < data.length; i++) {
+                    if (data[i].value) {
+                        config.push(data[i].value);
+                    }
+                }
+                return config
+            },
+
+            dealConfifDict(data) {
+                // 把[xxx1,xxx2] 转为 [{value:xxx1},{value:xxx2}]
+                let host = Array();
+                if (!data) {
+                    return host
+                }
+                for (let i = 0; i < data.length; i++) {
+                    host.push({value: data[i]});
+                }
+                return host
             },
             addSceneConfig() {
                 this.$axios.post(this.$api.addConfigApi, {
@@ -169,7 +267,11 @@
                     'funcAddress': this.configData.funcAddress,
                     'num': this.configData.num,
                     'id': this.configData.id,
-                    'variable': JSON.stringify(this.configData.variable),
+                    'variables': this.dealConfigList(this.config.configTest),
+                    'variables_two': this.dealConfigList(this.config.configDevelop),
+                    'variables_three': this.dealConfigList(this.config.configProduction),
+                    'variables_four': this.dealConfigList(this.config.configStandby),
+
                 }).then((response) => {
                         if (this.messageShow(this, response)) {
                             this.configData.modelFormVisible = false;
@@ -198,6 +300,11 @@
                         this.configData.name = response.data['data']['name'];
                         this.configData.num = response.data['data']['num'];
                         this.configData.variable = response.data['data']['variables'];
+                        this.config.configTest = this.dealConfifDict(response.data['data']['variables']);
+                        this.config.configDevelop = this.dealConfifDict(response.data['data']['variables_two']);
+                        this.config.configProduction = this.dealConfifDict(response.data['data']['variables_three']);
+                        this.config.configStandby = this.dealConfifDict(response.data['data']['variables_four']);
+
                         this.configData.funcAddress = response.data['data']['func_address'];
                         this.configData.projectName = this.projectName;
                         this.configData.id = id;
