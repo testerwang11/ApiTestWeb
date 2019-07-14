@@ -324,6 +324,7 @@
             },
             handleClick(tab, event) {
                 console.log(tab, event);
+                console.log(event.target.getAttribute('id'))  //获取到当前元素的id
             },
         },
         /*        watch: {
