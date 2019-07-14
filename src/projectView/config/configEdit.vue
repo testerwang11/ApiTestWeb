@@ -251,14 +251,14 @@
 
             dealConfifDict(data) {
                 // 把[xxx1,xxx2] 转为 [{value:xxx1},{value:xxx2}]
-                let host = Array();
+                let config = Array();
                 if (!data) {
-                    return host
+                    return config
                 }
                 for (let i = 0; i < data.length; i++) {
-                    host.push({value: data[i]});
+                    config.push({value: data[i]});
                 }
-                return host
+                return config
             },
             addSceneConfig() {
                 this.$axios.post(this.$api.addConfigApi, {
@@ -271,7 +271,6 @@
                     'variables_two': this.dealConfigList(this.config.configDevelop),
                     'variables_three': this.dealConfigList(this.config.configProduction),
                     'variables_four': this.dealConfigList(this.config.configStandby),
-
                 }).then((response) => {
                         if (this.messageShow(this, response)) {
                             this.configData.modelFormVisible = false;
