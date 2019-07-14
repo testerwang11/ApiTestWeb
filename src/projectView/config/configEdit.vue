@@ -325,6 +325,19 @@
             handleClick(tab, event) {
                 console.log(tab, event);
                 console.log(event.target.getAttribute('id'))  //获取到当前元素的id
+                let id = event.target.getAttribute('id');
+                if(id=='tab-first') {
+                    this.configChoice = 'first';
+                }else if(id=='tab-second') {
+                    this.configChoice = 'second';
+
+                }else if(id=='tab-third') {
+                    this.configChoice = 'third';
+
+                }else if(id=='tab-fourth') {
+                    this.configChoice = 'fourth';
+                }
+
             },
         },
         /*        watch: {
