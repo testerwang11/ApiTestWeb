@@ -43,7 +43,7 @@
                     <!--<hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -5px"/>-->
                     <hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -10px"/>
 
-                    <el-tabs v-model="configChoice" type="card">
+                    <el-tabs v-model="configChoice" type="card" @tab-click="handleClick">
                         <el-tab-pane label="测试环境" name="first">
                             <el-table :data="configData.configTest" size="mini" stripe :show-header="false">
                                 <el-table-column property="Key" label="Key" header-align="center" minWidth="100">
@@ -266,9 +266,9 @@
                 } else if (type === 'develop') {
                     this.configData.configDevelop.push({key: null, value: null, remark: null});
                 } else if (type === 'production') {
-                     this.configData.configProduction.push({key: null, value: null, remark: null});
+                    this.configData.configProduction.push({key: null, value: null, remark: null});
                 } else if (type === 'standby') {
-                     this.configData.configStandby.push({key: null, value: null, remark: null});
+                    this.configData.configStandby.push({key: null, value: null, remark: null});
                 }
             },
             addSceneConfig() {
@@ -322,53 +322,56 @@
                     }
                 )
             },
+            handleClick(tab, event) {
+                console.log(tab, event);
+            },
         },
-/*        watch: {
-            monitorConfigTest: {
-                handler: function () {
-                    if (this.configData.configTest.length === 0) {
-                        this.addConfigVariable('one')
-                    }
-                    if (this.configData.configTest[this.configData.configTest.length - 1]['value']) {
-                        this.addConfigVariable('one')
-                    }
-                },
-                deep: true
-            },
-            monitorConfigDevelop: {
-                handler: function () {
-                    if (this.configData.configDevelop.length === 0) {
-                        this.addConfigVariable('two')
-                    }
-                    if (this.configData.configDevelop[this.configData.configDevelop.length - 1]['value']) {
-                        this.addConfigVariable('two')
-                    }
-                },
-                deep: true
-            },
-            monitorConfigProduction: {
-                handler: function () {
-                    if (this.configData.configProduction.length === 0) {
-                        this.addConfigVariable('three')
-                    }
-                    if (this.configData.configProduction[this.configData.configProduction.length - 1]['value']) {
-                        this.addConfigVariable('three')
-                    }
-                },
-                deep: true
-            },
-            monitorConfigStandby: {
-                handler: function () {
-                    if (this.configData.configStandby.length === 0) {
-                        this.addConfigVariable('four')
-                    }
-                    if (this.configData.configStandby.length[this.configData.configStandby.length - 1]['value']) {
-                        this.addConfigVariable('four')
-                    }
-                },
-                deep: true
-            },
-        },*/
+        /*        watch: {
+                    monitorConfigTest: {
+                        handler: function () {
+                            if (this.configData.configTest.length === 0) {
+                                this.addConfigVariable('one')
+                            }
+                            if (this.configData.configTest[this.configData.configTest.length - 1]['value']) {
+                                this.addConfigVariable('one')
+                            }
+                        },
+                        deep: true
+                    },
+                    monitorConfigDevelop: {
+                        handler: function () {
+                            if (this.configData.configDevelop.length === 0) {
+                                this.addConfigVariable('two')
+                            }
+                            if (this.configData.configDevelop[this.configData.configDevelop.length - 1]['value']) {
+                                this.addConfigVariable('two')
+                            }
+                        },
+                        deep: true
+                    },
+                    monitorConfigProduction: {
+                        handler: function () {
+                            if (this.configData.configProduction.length === 0) {
+                                this.addConfigVariable('three')
+                            }
+                            if (this.configData.configProduction[this.configData.configProduction.length - 1]['value']) {
+                                this.addConfigVariable('three')
+                            }
+                        },
+                        deep: true
+                    },
+                    monitorConfigStandby: {
+                        handler: function () {
+                            if (this.configData.configStandby.length === 0) {
+                                this.addConfigVariable('four')
+                            }
+                            if (this.configData.configStandby.length[this.configData.configStandby.length - 1]['value']) {
+                                this.addConfigVariable('four')
+                            }
+                        },
+                        deep: true
+                    },
+                },*/
         mounted() {
         },
     }
