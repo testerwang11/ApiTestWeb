@@ -279,9 +279,9 @@
                     'num': this.configData.num,
                     'id': this.configData.id,
                     'variables': JSON.stringify(this.configData.configTest),
-                    'variables_two': this.dealConfigList(this.configData.configDevelop),
-                    'variables_three': this.dealConfigList(this.configData.configProduction),
-                    'variables_four': this.dealConfigList(this.configData.configStandby),
+                    'variables_two': JSON.stringify(this.configData.configDevelop),
+                    'variables_three': JSON.stringify(this.configData.configProduction),
+                    'variables_four': JSON.stringify(this.configData.configStandby),
                 }).then((response) => {
                         if (this.messageShow(this, response)) {
                             this.configData.modelFormVisible = false;
@@ -323,7 +323,7 @@
                 )
             },
         },
-        watch: {
+/*        watch: {
             monitorConfigTest: {
                 handler: function () {
                     if (this.configData.configTest.length === 0) {
@@ -368,7 +368,7 @@
                 },
                 deep: true
             },
-        },
+        },*/
         mounted() {
         },
     }
