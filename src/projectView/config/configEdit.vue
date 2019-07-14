@@ -45,7 +45,7 @@
 
                     <el-tabs v-model="configChoice" type="card">
                         <el-tab-pane label="测试环境" name="first">
-                            <el-table :data="config.configTest" size="mini" stripe :show-header="false">
+                            <el-table :data="configData.configTest" size="mini" stripe :show-header="false">
                                 <el-table-column property="Key" label="Key" header-align="center" minWidth="100">
                                     <template slot-scope="scope">
                                         <el-input v-model="scope.row.key" size="mini" placeholder="key">
@@ -74,7 +74,7 @@
                             </el-table>
                         </el-tab-pane>
                         <el-tab-pane label="开发环境" name="second">
-                            <el-table :data="config.configDevelop" size="mini" stripe :show-header="false">
+                            <el-table :data="configData.configDevelop" size="mini" stripe :show-header="false">
                                 <el-table-column label="Key" header-align="center" minWidth="100">
                                     <template slot-scope="scope">
                                         <el-input v-model="scope.row.key" size="mini" placeholder="key">
@@ -103,7 +103,7 @@
                             </el-table>
                         </el-tab-pane>
                         <el-tab-pane label="线上环境" name="third">
-                            <el-table :data="config.configDevelop" size="mini" stripe :show-header="false">
+                            <el-table :data="configData.configProduction" size="mini" stripe :show-header="false">
                                 <el-table-column label="Key" header-align="center" minWidth="100">
                                     <template slot-scope="scope">
                                         <el-input v-model="scope.row.key" size="mini" placeholder="key">
@@ -132,7 +132,7 @@
                             </el-table>
                         </el-tab-pane>
                         <el-tab-pane label="备用环境" name="fourth">
-                            <el-table :data="config.configDevelop" size="mini" stripe :show-header="false">
+                            <el-table :data="configData.configStandby" size="mini" stripe :show-header="false">
                                 <el-table-column label="Key" header-align="center" minWidth="100">
                                     <template slot-scope="scope">
                                         <el-input v-model="scope.row.key" size="mini" placeholder="key">
@@ -178,20 +178,20 @@
         data() {
             return {
                 configChoice: 'first',
-                config: {
+                /*config: {
                     configTest: [{key: null, value: null, remark: null}],
                     configDevelop: [{key: null, value: null, remark: null}],
                     configProduction: [{key: null, value: null, remark: null}],
                     configStandby: [{key: null, value: null, remark: null}],
-                },
+                },*/
                 configData: {
                     funcAddress: Array(),
                     id: null,
                     num: null,
                     configTest: Array(),
-                    configTwo: Array(),
-                    configThree: Array(),
-                    configFour: Array(),
+                    configDevelop: Array(),
+                    configProduction: Array(),
+                    configStandby: Array(),
                     modelFormVisible: false,
                     projectName: null,
                     name: null,
@@ -203,10 +203,10 @@
             initConfigData() {
                 this.configData.name = null;
                 this.configData.projectName = this.projectName;
-                this.config.configTest = Array();
-                this.config.configDevelop = Array();
-                this.config.configProduction = Array();
-                this.config.configStandby = Array();
+                this.configData.configTest = Array();
+                this.configData.configDevelop = Array();
+                this.configData.configProduction = Array();
+                this.configData.configStandby = Array();
                 this.configData.funcAddress = Array();
                 this.configData.id = null;
                 this.configData.num = null;
@@ -215,16 +215,16 @@
             },
             addConfigVariable() {
                 if (this.configChoice === 'first') {
-                    this.config.configTest.push({key: null, value: null, remark: null});
+                    this.configData.configTest.push({key: null, value: null, remark: null});
                 }
                 if (this.configChoice === 'second') {
-                    this.config.configDevelop.push({key: null, value: null, remark: null});
+                    this.configData.configDevelop.push({key: null, value: null, remark: null});
                 }
                 if (this.configChoice === 'third') {
-                    this.config.configProduction.push({key: null, value: null, remark: null});
+                    this.configData.configProduction.push({key: null, value: null, remark: null});
                 }
                 if (this.configChoice === 'fourth') {
-                    this.config.configStandby.push({key: null, value: null, remark: null});
+                    this.configData.configStandby.push({key: null, value: null, remark: null});
                 }
             },
             delConfigVariable(type, i) {
@@ -262,13 +262,13 @@
             },
             addTableRow(type) {
                 if (type === 'test') {
-                    this.environment.environmentTest.push({value: ''});
+                    this.configData.configTest.push({key: null, value: null, remark: null});
                 } else if (type === 'develop') {
-                    this.environment.environmentDevelop.push({value: ''});
+                    this.configData.configDevelop.push({key: null, value: null, remark: null});
                 } else if (type === 'production') {
-                    this.environment.environmentProduction.push({value: ''});
+                     this.configData.configProduction.push({key: null, value: null, remark: null});
                 } else if (type === 'standby') {
-                    this.environment.environmentStandby.push({value: ''});
+                     this.configData.configStandby.push({key: null, value: null, remark: null});
                 }
             },
             addSceneConfig() {
@@ -279,9 +279,9 @@
                     'num': this.configData.num,
                     'id': this.configData.id,
                     'variables': JSON.stringify(this.configData.configTest),
-                    'variables_two': this.dealConfigList(this.config.configDevelop),
-                    'variables_three': this.dealConfigList(this.config.configProduction),
-                    'variables_four': this.dealConfigList(this.config.configStandby),
+                    'variables_two': this.dealConfigList(this.configData.configDevelop),
+                    'variables_three': this.dealConfigList(this.configData.configProduction),
+                    'variables_four': this.dealConfigList(this.configData.configStandby),
                 }).then((response) => {
                         if (this.messageShow(this, response)) {
                             this.configData.modelFormVisible = false;
@@ -310,10 +310,10 @@
                         this.configData.name = response.data['data']['name'];
                         this.configData.num = response.data['data']['num'];
                         this.configData.variable = response.data['data']['variables'];
-                        this.config.configTest = this.dealConfifDict(response.data['data']['variables']);
-                        this.config.configDevelop = this.dealConfifDict(response.data['data']['variables_two']);
-                        this.config.configProduction = this.dealConfifDict(response.data['data']['variables_three']);
-                        this.config.configStandby = this.dealConfifDict(response.data['data']['variables_four']);
+                        this.configData.configTest = response.data['data']['variables'];
+                        this.configData.configDevelop = response.data['data']['variables_two'];
+                        this.configData.configProduction = response.data['data']['variables_three'];
+                        this.configData.configStandby = response.data['data']['variables_four'];
 
                         this.configData.funcAddress = response.data['data']['func_address'];
                         this.configData.projectName = this.projectName;
@@ -326,10 +326,10 @@
         watch: {
             monitorConfigTest: {
                 handler: function () {
-                    if (this.config.configTest.length === 0) {
+                    if (this.configData.configTest.length === 0) {
                         this.addConfigVariable('one')
                     }
-                    if (this.config.configTest[this.config.configTest.length - 1]['value']) {
+                    if (this.configData.configTest[this.configData.configTest.length - 1]['value']) {
                         this.addConfigVariable('one')
                     }
                 },
@@ -337,10 +337,10 @@
             },
             monitorConfigDevelop: {
                 handler: function () {
-                    if (this.config.configDevelop.length === 0) {
+                    if (this.configData.configDevelop.length === 0) {
                         this.addConfigVariable('two')
                     }
-                    if (this.config.configDevelop[this.config.configDevelop.length - 1]['value']) {
+                    if (this.configData.configDevelop[this.configData.configDevelop.length - 1]['value']) {
                         this.addConfigVariable('two')
                     }
                 },
@@ -348,10 +348,10 @@
             },
             monitorConfigProduction: {
                 handler: function () {
-                    if (this.config.configProduction.length === 0) {
+                    if (this.configData.configProduction.length === 0) {
                         this.addConfigVariable('three')
                     }
-                    if (this.config.configProduction[this.config.configProduction.length - 1]['value']) {
+                    if (this.configData.configProduction[this.configData.configProduction.length - 1]['value']) {
                         this.addConfigVariable('three')
                     }
                 },
@@ -359,10 +359,10 @@
             },
             monitorConfigStandby: {
                 handler: function () {
-                    if (this.config.configStandby.length === 0) {
+                    if (this.configData.configStandby.length === 0) {
                         this.addConfigVariable('four')
                     }
-                    if (this.config.configStandby.length[this.config.configStandby.length - 1]['value']) {
+                    if (this.configData.configStandby.length[this.configData.configStandby.length - 1]['value']) {
                         this.addConfigVariable('four')
                     }
                 },
