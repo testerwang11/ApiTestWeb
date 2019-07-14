@@ -215,16 +215,16 @@
             },
             addConfigVariable() {
                 if (this.configChoice === 'first') {
-                    this.config.configTest.push({value: ''});
+                    this.config.configTest.push({key: null, value: null, remark: null});
                 }
                 if (this.configChoice === 'second') {
-                    this.config.configDevelop.push({value: ''});
+                    this.config.configDevelop.push({key: null, value: null, remark: null});
                 }
                 if (this.configChoice === 'third') {
-                    this.config.configProduction.push({value: ''});
+                    this.config.configProduction.push({key: null, value: null, remark: null});
                 }
                 if (this.configChoice === 'fourth') {
-                    this.config.configStandby.push({value: ''});
+                    this.config.configStandby.push({key: null, value: null, remark: null});
                 }
             },
             delConfigVariable(type, i) {
@@ -259,6 +259,17 @@
                     config.push({value: data[i]});
                 }
                 return config
+            },
+            addTableRow(type) {
+                if (type === 'test') {
+                    this.environment.environmentTest.push({value: ''});
+                } else if (type === 'develop') {
+                    this.environment.environmentDevelop.push({value: ''});
+                } else if (type === 'production') {
+                    this.environment.environmentProduction.push({value: ''});
+                } else if (type === 'standby') {
+                    this.environment.environmentStandby.push({value: ''});
+                }
             },
             addSceneConfig() {
                 this.$axios.post(this.$api.addConfigApi, {
@@ -310,6 +321,52 @@
                         this.configData.modelFormVisible = true;
                     }
                 )
+            },
+        },
+        watch: {
+            monitorConfigTest: {
+                handler: function () {
+                    if (this.config.configTest.length === 0) {
+                        this.addConfigVariable('one')
+                    }
+                    if (this.config.configTest[this.config.configTest.length - 1]['value']) {
+                        this.addConfigVariable('one')
+                    }
+                },
+                deep: true
+            },
+            monitorConfigDevelop: {
+                handler: function () {
+                    if (this.config.configDevelop.length === 0) {
+                        this.addConfigVariable('two')
+                    }
+                    if (this.config.configDevelop[this.config.configDevelop.length - 1]['value']) {
+                        this.addConfigVariable('two')
+                    }
+                },
+                deep: true
+            },
+            monitorConfigProduction: {
+                handler: function () {
+                    if (this.config.configProduction.length === 0) {
+                        this.addConfigVariable('three')
+                    }
+                    if (this.config.configProduction[this.config.configProduction.length - 1]['value']) {
+                        this.addConfigVariable('three')
+                    }
+                },
+                deep: true
+            },
+            monitorConfigStandby: {
+                handler: function () {
+                    if (this.config.configStandby.length === 0) {
+                        this.addConfigVariable('four')
+                    }
+                    if (this.config.configStandby.length[this.config.configStandby.length.length - 1]['value']) {
+                        this.addConfigVariable('four')
+                    }
+                },
+                deep: true
             },
         },
         mounted() {
