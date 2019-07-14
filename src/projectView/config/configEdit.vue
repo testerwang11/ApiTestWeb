@@ -179,10 +179,10 @@
             return {
                 configChoice: 'first',
                 config: {
-                    configTest: [{value: ''}],
-                    configDevelop: [{value: ''}],
-                    configProduction: [{value: ''}],
-                    configStandby: [{value: ''}],
+                    configTest: [{key: null, value: null, remark: null}],
+                    configDevelop: [{key: null, value: null, remark: null}],
+                    configProduction: [{key: null, value: null, remark: null}],
+                    configStandby: [{key: null, value: null, remark: null}],
                 },
                 configData: {
                     funcAddress: Array(),
@@ -362,7 +362,7 @@
                     if (this.config.configStandby.length === 0) {
                         this.addConfigVariable('four')
                     }
-                    if (this.config.configStandby.length[this.config.configStandby.length.length - 1]['value']) {
+                    if (this.config.configStandby.length[this.config.configStandby.length - 1]['value']) {
                         this.addConfigVariable('four')
                     }
                 },
