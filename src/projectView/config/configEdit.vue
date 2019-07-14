@@ -74,7 +74,7 @@
                             </el-table>
                         </el-tab-pane>
                         <el-tab-pane label="开发环境" name="second">
-                            <el-table :data="config.configTestDevelop" size="mini" stripe :show-header="false">
+                            <el-table :data="config.configDevelop" size="mini" stripe :show-header="false">
                                 <el-table-column label="Key" header-align="center" minWidth="100">
                                     <template slot-scope="scope">
                                         <el-input v-model="scope.row.key" size="mini" placeholder="key">
@@ -103,7 +103,7 @@
                             </el-table>
                         </el-tab-pane>
                         <el-tab-pane label="线上环境" name="third">
-                            <el-table :data="config.configTestDevelop" size="mini" stripe :show-header="false">
+                            <el-table :data="config.configDevelop" size="mini" stripe :show-header="false">
                                 <el-table-column label="Key" header-align="center" minWidth="100">
                                     <template slot-scope="scope">
                                         <el-input v-model="scope.row.key" size="mini" placeholder="key">
@@ -132,7 +132,7 @@
                             </el-table>
                         </el-tab-pane>
                         <el-tab-pane label="备用环境" name="fourth">
-                            <el-table :data="config.configTestDevelop" size="mini" stripe :show-header="false">
+                            <el-table :data="config.configDevelop" size="mini" stripe :show-header="false">
                                 <el-table-column label="Key" header-align="center" minWidth="100">
                                     <template slot-scope="scope">
                                         <el-input v-model="scope.row.key" size="mini" placeholder="key">
@@ -188,10 +188,10 @@
                     funcAddress: Array(),
                     id: null,
                     num: null,
-                    config: null,
-                    configTwo: null,
-                    configThree: null,
-                    configFour: null,
+                    configTest: Array(),
+                    configTwo: Array(),
+                    configThree: Array(),
+                    configFour: Array(),
                     modelFormVisible: false,
                     projectName: null,
                     name: null,
@@ -278,7 +278,7 @@
                     'funcAddress': this.configData.funcAddress,
                     'num': this.configData.num,
                     'id': this.configData.id,
-                    'variables': this.dealConfigList(this.config.configTest),
+                    'variables': JSON.stringify(this.configData.configTest),
                     'variables_two': this.dealConfigList(this.config.configDevelop),
                     'variables_three': this.dealConfigList(this.config.configProduction),
                     'variables_four': this.dealConfigList(this.config.configStandby),
