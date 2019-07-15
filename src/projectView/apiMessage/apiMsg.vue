@@ -13,19 +13,16 @@
                             :value="item.name">
                     </el-option>
                 </el-select>
+                环境
                 <el-select
-                        v-model="form.config"
-                        placeholder="请选择配置"
-                        clearable
-                        value-key="configId"
-                        style="width: 150px"
+                        v-model="envValue"
+                        placeholder="请选择环境"
+                        style="width: 100px"
                 >
                     <el-option
-
-                            v-for="item in configData[this.form.projectName]"
-                            :key="item.configId"
-                            :label="item.name"
-                            :value="item">
+                            v-for="item in this.envData"
+                            :key="item.value"
+                            :value="item.label">
                     </el-option>
                 </el-select>
             </el-form-item>
@@ -250,7 +247,6 @@
             errorView: errorView,
             configEdit: configEdit,
             moveApi: moveApi,
-
         },
         name: 'caseManage',
         data() {
@@ -300,8 +296,26 @@
                     projectId: null,
                     suiteName: null,
                     apiName: null,
-
                 },
+                envValue: '',
+                envData: [
+                    {
+                        value: 'first',
+                        label: '测试环境'
+                    },
+                    {
+                        value: 'second',
+                        label: '开发环境'
+                    },
+                    {
+                        value: 'third',
+                        label: '生产环境'
+                    },
+                    {
+                        value: 'fourth',
+                        label: '备用环境'
+                    },
+                ],
             }
         },
 
@@ -324,7 +338,6 @@
                                 this.funcAddress = response['data']['data'];
                             }
                         )
-
                     }
                 )
             },
@@ -351,11 +364,11 @@
                 _selectData.forEach(item => {
                     ids.push(item.apiMsgId)
                 })
-                const _msg = '你选中了 [ ' + ids + ' ] 条数据.'
+                /*const _msg = '你选中了 [ ' + ids + ' ] 条数据.'
                 this.$notify.info({
                     title: '消息',
                     message: _msg
-                });
+                });*/
                 if (ids.length == 0) {
                     this.$message({
                         showClose: true,
@@ -365,37 +378,10 @@
                     return
                 }
                 this.$refs.moveApiFunc.moduleSelect(this.form.projectName, ids);
-                //this.$refs.moveApiFunc.move(ids);
-                /*this.$axios.post(this.$api.findModuleApi, {
-                    'projectName': "无车承运",
-                    "page": "1",
-                    "sizePage": "30"
-                }).then((response) => {
-                        this.configData.name = response.data['data']['name'];
-                        this.configData.num = response.data['data']['num'];
-                        this.configData.variable = response.data['data']['variables'];
-                        this.configData.funcAddress = response.data['data']['func_address'];
-                        this.configData.projectName = this.projectName;
-                    }
-                )
-
-                this.$axios.post(this.$api.moveApiApi, {
-                    'apiMsgIds': ids,
-                    'project_id': 1,
-                    'module_id': 2,
-                }).then((response) => {
-                        if (this.messageShow(this, response)) {
-                            this.ApiMsgTableData = response.data['msg'];
-                            this.apiMsgPage.total = response.data['total'];
-                        }
-                    }
-                )*/
-
             },
             handleSizeChange(val) {
                 this.apiMsgPage.sizePage = val;
                 this.findApiMsg();
-
             },
 
             findApiMsg() {
@@ -463,11 +449,22 @@
             },
             apiTest(apiMsgData = null) {
                 //  接口调试
+                if (this.envValue == '') {
+                    this.$message({
+                        showClose: true,
+                        message: '请先选择执行环境！！！！！！',
+                        type: 'warning',
+                    });
+                    return
+                }
                 this.loading = true;
+
                 this.$axios.post(this.$api.runApiApi, {
                     'apiMsgData': apiMsgData,
                     'projectName': this.form.projectName,
+                    'projectId': this.form.projectId,
                     'configId': this.form.config.configId,
+                    'envValue': this.envValue,
                 }).then((response) => {
                         if (response.data['status'] === 0) {
                             this.$message({
@@ -539,7 +536,6 @@
                             } else {
                                 this.ApiMsgTableData = []
                             }
-
                         }
                     }
                 )

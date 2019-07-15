@@ -52,7 +52,7 @@
                         </el-form-item>
                     </el-form>
                     <hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -5px"/>
-                    <el-form :inline="true" class="demo-form-inline " size="small">
+<!--                    <el-form :inline="true" class="demo-form-inline " size="small">
                         <el-form-item label=" " labelWidth="10px">
                             <el-select v-model="form.sceneVariableProjectName" placeholder="请选择项目"
                                        @change="changeConfigChoice"
@@ -130,7 +130,7 @@
                                 </el-button-group>
                             </template>
                         </el-table-column>
-                    </el-table>
+                    </el-table>-->
                 </el-tab-pane>
 
                 <el-tab-pane label="执行步骤" name="second">

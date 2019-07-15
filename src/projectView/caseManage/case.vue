@@ -19,9 +19,10 @@
                 <el-button type="primary" icon="el-icon-search" @click.native="handleCaseCurrentChange(1)">搜索
                 </el-button>
                 <el-button type="primary" @click.native="$refs.caseEditFunc.initCaseData()">添加接口用例</el-button>
-                <el-button type="primary" @click.native="runScene(caseList,true,true)">批量运行</el-button>
+                <el-button type="primary" @click.native="runScene(caseList,true,true,'first')">批量运行(测试)</el-button>
+                <el-button type="primary" @click.native="runScene(caseList,true,true,'second')">批量运行(开发)</el-button>
+                <el-button type="primary" @click.native="runScene(caseList,true,true,'third')">批量运行(生产)</el-button>
             </el-form-item>
-
         </el-form>
         <el-tabs value="first" style="padding-left: 10px;padding-right:5px;">
             <el-tab-pane label="用例信息" name="first">
@@ -150,9 +151,7 @@
                 :configData="configData"
                 :funcAddress="funcAddress"
                 ref="caseEditFunc">
-
         </caseEdit>
-
         <errorView ref="errorViewFunc">
         </errorView>
 
@@ -314,7 +313,7 @@
                     }
                 )
             },
-            runScene(sceneIds, status = false, reportStatus = false) {
+            runScene(sceneIds, status = false, reportStatus = false, env='first') {
                 //  status，为true时，批量运行用例，为false运行单用例
                 //  reportStatus，为true时生成报告，为false时返回临时数据
                 let _sceneIds = [];
@@ -338,7 +337,8 @@
                 this.$axios.post(this.$api.runCaseApi, {
                     'reportStatus': reportStatus,
                     'sceneIds': _sceneIds,
-                    'projectName': this.form.projectName
+                    'projectName': this.form.projectName,
+                    'envValue':env,
                 }).then((response) => {
                         this.loading = false;
                         if (response.data['status'] === 0) {

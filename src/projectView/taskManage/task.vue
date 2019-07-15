@@ -115,6 +115,11 @@
                         <!--</el-option>-->
                         <!--</el-select>-->
                         <!--</el-form-item>-->
+                        <el-form-item label="执行环境" :label-width="taskData.formLabelWidth">
+                            <el-radio v-model="taskData.environment" label="first">测试环境</el-radio>
+                            <el-radio v-model="taskData.environment" label="second">开发环境</el-radio>
+                            <el-radio v-model="taskData.environment" label="third">生产环境</el-radio>
+                        </el-form-item>
                         <el-form-item label="执行选择" :label-width="taskData.formLabelWidth">
                             <el-select v-model="form.projectName" placeholder="选择项目"
                                        style="width: 150px;padding-right:5px"
@@ -172,10 +177,10 @@
                                       placeholder="second minute hour day month day_of_week(0 0 12 * * ? 每天中午12点触发)">
                             </el-input>
                         </el-form-item>
-                         <el-form-item label="通知策略" :label-width="taskData.formLabelWidth">
+                        <el-form-item label="通知策略" :label-width="taskData.formLabelWidth">
                             <el-radio v-model="taskData.noticeType" label="1">全部通知</el-radio>
                             <el-radio v-model="taskData.noticeType" label="2">失败通知</el-radio>
-                         </el-form-item>
+                        </el-form-item>
                     </el-form>
                 </el-tab-pane>
 
@@ -233,11 +238,11 @@
                     timeConfig: '',
                     password: '',
                     noticeType: '1',
+                    environment: "first",
                     formLabelWidth: '90px',
                 }
             }
         },
-
 
         methods: {
             httpSend() {
@@ -251,11 +256,10 @@
                         this.allSceneList = response.data['scene_list'];
                     }
                 );
-
             },
             changeProjectChoice() {
                 this.form.set = [];
-                this.form.case = [   ];
+                this.form.case = [];
 
             },
             changeSceneChoice() {
@@ -266,7 +270,6 @@
                     this.caseStatus = true;
                     this.form.case = [];
                     this.form.set_id = ''
-
                 }
             },
             handleCurrentChange(val) {
@@ -294,7 +297,6 @@
                             this.tableData = response.data['data'];
                             this.total = response.data['total'];
                         }
-
                     }
                 )
             },
@@ -310,8 +312,8 @@
                 this.form.case = [];
                 this.taskData.num = '';
                 this.taskData.noticeType = '1';
+                this.taskData.environment = 'first';
                 this.taskData.modelFormVisible = true;
-
             },
             addTask() {
                 this.$axios.post(this.$api.addTaskApi, {
@@ -323,7 +325,8 @@
                     'name': this.taskData.name,
                     'taskType': this.taskData.taskType,
                     'toEmail': this.taskData.toEmail,
-                    'noticeType':this.taskData.noticeType,
+                    'noticeType': this.taskData.noticeType,
+                    'environment': this.taskData.environment,
                     //'sendEmail': this.taskData.SendEmail,
                     'timeConfig': this.taskData.timeConfig,
                     //'password': this.taskData.password,
@@ -360,6 +363,7 @@
                         this.taskData.id = id;
                         this.form.set = response.data['data']['set_ids'];
                         this.taskData.noticeType = response.data['data']['notice_type'];
+                        this.taskData.environment = response.data['data']['environment'];
                         if (response.data['data']['set_ids'].length === 1) {
                             // 当用例集只有1个时，赋值set_id，让用例下拉框有数据显示
                             this.form.set_id = response.data['data']['set_ids'][0]['id']
@@ -428,8 +432,6 @@
         },
         mounted() {
             this.httpSend();
-
-
         },
     }
 </script>
