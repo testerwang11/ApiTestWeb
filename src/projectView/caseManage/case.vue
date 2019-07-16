@@ -22,6 +22,7 @@
                 <el-button type="primary" @click.native="runScene(caseList,true,true,'first')">批量运行(测试)</el-button>
                 <el-button type="primary" @click.native="runScene(caseList,true,true,'second')">批量运行(开发)</el-button>
                 <el-button type="primary" @click.native="runScene(caseList,true,true,'third')">批量运行(生产)</el-button>
+                <el-button type="primary" @click.native="runScene(caseList,true,true,'fourth')">批量运行(准生产)</el-button>
             </el-form-item>
         </el-form>
         <el-tabs value="first" style="padding-left: 10px;padding-right:5px;">

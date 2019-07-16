@@ -31,7 +31,7 @@
                             label="项目名称"
                             width="150">
                     </el-table-column>
-                    <el-table-column label="当前环境">
+                    <!--<el-table-column label="当前环境">
                         <template slot-scope="scope">
                             <el-tag size="small"
                                     :type="tableData[scope.$index]['choice'] === 'first' ?
@@ -41,16 +41,26 @@
                             </el-tag>
 
                         </template>
-                    </el-table-column>
+                    </el-table-column>-->
                     <!--<el-table-column-->
                     <!--prop="host_two"-->
                     <!--label="基础url2"-->
                     <!--&gt;-->
                     <!--</el-table-column>-->
                     <el-table-column
-                            prop="principal"
+                            prop="principal2"
                             label="负责人"
-                            width="150">
+                            width="200">
+                    </el-table-column>
+                    <el-table-column
+                            prop="createTime"
+                            label="创建时间"
+                            width="200">
+                    </el-table-column>
+                    <el-table-column
+                            prop="updateTime"
+                            label="更新时间"
+                            width="200">
                     </el-table-column>
                     <el-table-column
                             label="操作"
@@ -90,13 +100,13 @@
                             </el-input>
                         </el-form-item>
                         <el-form-item label="负责人" label-width="60px">
-                            <el-select v-model="form.user" value-key="user_id" id="user" size="mini"
+                            <el-select v-model="form.users" multiple size="mini"
                                        style="width: 100px">
                                 <el-option
                                         v-for="item in userData"
-                                        :key="item.user_id"
-                                        :label="item.user_name"
-                                        :value="item">
+                                        :key="item.id"
+                                        :label="item.label"
+                                        :value="item.label">
                                 </el-option>
                             </el-select>
                         </el-form-item>
@@ -194,7 +204,7 @@
                     <el-button type="primary" size="mini" @click="addProjectVariable()">
                         添加
                     </el-button>
-                    <el-table :data="projectData.variable" stripe :show-header="false" size="mini" >
+                    <el-table :data="projectData.variable" stripe :show-header="false" size="mini">
                         <el-table-column label="Key" header-align="center" minWidth="50">
                             <template slot-scope="scope">
                                 <el-input v-model="scope.row.key" size="mini" placeholder="key">
@@ -224,32 +234,30 @@
                     <hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);"/>
 
                     <!--<div style="margin-top: 10px">-->
-                        <!--<span style="margin-left: 10px">头部信息：</span>-->
-                        <!--<el-button type="primary" size="mini" @click="addProjectHeader()">添加</el-button>-->
+                    <!--<span style="margin-left: 10px">头部信息：</span>-->
+                    <!--<el-button type="primary" size="mini" @click="addProjectHeader()">添加</el-button>-->
                     <!--</div>-->
                     <!--<el-table :data="projectData.header" stripe :show-header="false">-->
-                        <!--<el-table-column label="Key" header-align="center" minWidth="50">-->
-                            <!--<template slot-scope="scope">-->
-                                <!--<el-input v-model="scope.row.key" size="mini" placeholder="key">-->
-                                <!--</el-input>-->
-                            <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column label="Value" header-align="center" minWidth="80">-->
-                            <!--<template slot-scope="scope">-->
-                                <!--<el-input v-model="scope.row.value" size="mini" placeholder="value">-->
-                                <!--</el-input>-->
-                            <!--</template>-->
-                        <!--</el-table-column>-->
-                        <!--<el-table-column label="操作" header-align="center" width="80">-->
-                            <!--<template slot-scope="scope">-->
-                                <!--<el-button type="danger" icon="el-icon-delete" size="mini"-->
-                                           <!--@click.native="delProjectHeader(scope.$index)">删除-->
-                                <!--</el-button>-->
-                            <!--</template>-->
-                        <!--</el-table-column>-->
+                    <!--<el-table-column label="Key" header-align="center" minWidth="50">-->
+                    <!--<template slot-scope="scope">-->
+                    <!--<el-input v-model="scope.row.key" size="mini" placeholder="key">-->
+                    <!--</el-input>-->
+                    <!--</template>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column label="Value" header-align="center" minWidth="80">-->
+                    <!--<template slot-scope="scope">-->
+                    <!--<el-input v-model="scope.row.value" size="mini" placeholder="value">-->
+                    <!--</el-input>-->
+                    <!--</template>-->
+                    <!--</el-table-column>-->
+                    <!--<el-table-column label="操作" header-align="center" width="80">-->
+                    <!--<template slot-scope="scope">-->
+                    <!--<el-button type="danger" icon="el-icon-delete" size="mini"-->
+                    <!--@click.native="delProjectHeader(scope.$index)">删除-->
+                    <!--</el-button>-->
+                    <!--</template>-->
+                    <!--</el-table-column>-->
                     <!--</el-table>-->
-
-
                 </el-tab-pane>
 
             </el-tabs>
@@ -271,7 +279,6 @@
         name: 'projectManage',
         data() {
             return {
-
                 environmentChoice: 'first',
                 environment: {
                     environmentTest: [{value: ''}],
@@ -287,10 +294,11 @@
                 sizePage: 20,
                 form: {
                     projectName: null,
-                    user: {
+                    /*user: {
                         user_name: null,
                         user_id: null,
-                    },
+                    },*/
+                    users: Array(),
                 },
                 projectData: {
                     host: null,
@@ -344,7 +352,7 @@
                 this.environment.environmentDevelop = Array();
                 this.environment.environmentProduction = Array();
                 this.environment.environmentStandby = Array();
-                this.form.user = {};
+                this.form.users = Array();
                 this.projectData.principal = null;
                 this.projectData.funcFile = null;
                 this.projectData.header = Array();
@@ -373,6 +381,7 @@
                 }
                 return host
             },
+
             addProjectBtn() {
                 let test_length = this.environment.environmentTest.length;
                 let currentEnvironment;
@@ -397,31 +406,32 @@
                 }
             },
             addProject() {
-                this.$axios.post(this.$api.addProApi, {
-                    'projectName': this.projectData.projectName,
-                    'principal': this.projectData.principal,
-                    'funcFile': this.projectData.funcFile,
-                    'environmentChoice': this.environmentChoice,
-                    'host': this.dealHostList(this.environment.environmentTest),
-                    'hostTwo': this.dealHostList(this.environment.environmentDevelop),
-                    'hostThree': this.dealHostList(this.environment.environmentProduction),
-                    'hostFour': this.dealHostList(this.environment.environmentStandby),
-                    'id': this.projectData.id,
-                    'header': JSON.stringify(this.projectData.header),
-                    'userId': this.form.user.user_id,
-                    'variable': JSON.stringify(this.projectData.variable),
-                }).then((response) => {
-                        if (this.messageShow(this, response)) {
-                            this.projectData.modelFormVisible = false;
-                            this.findProject();
+                console.log(this.form.users);
+                    this.$axios.post(this.$api.addProApi, {
+                        'projectName': this.projectData.projectName,
+                        'principal': this.projectData.principal,
+                        'funcFile': this.projectData.funcFile,
+                        'environmentChoice': this.environmentChoice,
+                        'host': this.dealHostList(this.environment.environmentTest),
+                        'hostTwo': this.dealHostList(this.environment.environmentDevelop),
+                        'hostThree': this.dealHostList(this.environment.environmentProduction),
+                        'hostFour': this.dealHostList(this.environment.environmentStandby),
+                        'id': this.projectData.id,
+                        'header': JSON.stringify(this.projectData.header),
+                        //'users': JSON.stringify(this.form.users),
+                        'users': this.form.users,
+                        'variable': JSON.stringify(this.projectData.variable),
+                    }).then((response) => {
+                            if (this.messageShow(this, response)) {
+                                this.projectData.modelFormVisible = false;
+                                this.findProject();
+                            }
                         }
-                    }
-                )
+                    )
             },
             editProject(id) {
                 this.$axios.post(this.$api.editProApi, {'id': id}).then((response) => {
-                        let index = this.userData.map(item => item.user_id).indexOf(response.data['data']['user_id']);
-                        this.form.user = this.userData[index];
+                        this.form.users = JSON.parse(response.data['data']['user_id']);
                         this.projectData.projectName = response.data['data']['pro_name'];
                         this.projectData.principal = response.data['data']['principal'];
                         this.environmentChoice = response.data['data']['environment_choice'];

@@ -211,7 +211,6 @@
                 this.configData.id = null;
                 this.configData.num = null;
                 this.configData.modelFormVisible = true;
-
             },
             addConfigVariable() {
                 if (this.configChoice === 'first') {
@@ -288,7 +287,6 @@
                             if (typeof this.$parent.findConfig === "function") {
                                 this.$parent.findConfig();
                             }
-
                             // this.findConfig();
                         }
                     }
@@ -314,7 +312,6 @@
                         this.configData.configDevelop = response.data['data']['variables_two'];
                         this.configData.configProduction = response.data['data']['variables_three'];
                         this.configData.configStandby = response.data['data']['variables_four'];
-
                         this.configData.funcAddress = response.data['data']['func_address'];
                         this.configData.projectName = this.projectName;
                         this.configData.id = id;

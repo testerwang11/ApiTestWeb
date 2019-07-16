@@ -119,6 +119,7 @@
                             <el-radio v-model="taskData.environment" label="first">测试环境</el-radio>
                             <el-radio v-model="taskData.environment" label="second">开发环境</el-radio>
                             <el-radio v-model="taskData.environment" label="third">生产环境</el-radio>
+                            <el-radio v-model="taskData.environment" label="fourth">准生产环境</el-radio>
                         </el-form-item>
                         <el-form-item label="执行选择" :label-width="taskData.formLabelWidth">
                             <el-select v-model="form.projectName" placeholder="选择项目"

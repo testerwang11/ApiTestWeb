@@ -49,7 +49,11 @@
                             label="所属项目"
                             minWidth="50">
                     </el-table-column>
-
+                    <el-table-column
+                            prop="envData"
+                            label="执行环境"
+                            minWidth="50">
+                    </el-table-column>
                     <el-table-column
                             :show-overflow-tooltip=true
                             minWidth="200"
