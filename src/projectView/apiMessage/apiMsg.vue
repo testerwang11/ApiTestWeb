@@ -297,7 +297,7 @@
                     suiteName: null,
                     apiName: null,
                 },
-                envValue: '',
+                envValue: '测试环境',
                 envData: [
                     {
                         value: 'first',
@@ -313,7 +313,7 @@
                     },
                     {
                         value: 'fourth',
-                        label: '备用环境'
+                        label: '准生产环境'
                     },
                 ],
             }
