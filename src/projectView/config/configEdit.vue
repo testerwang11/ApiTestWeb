@@ -67,7 +67,7 @@
                                 <el-table-column property="操作" label="操作" header-align="center" width="80">
                                     <template slot-scope="scope">
                                         <el-button type="danger" icon="el-icon-delete" size="mini"
-                                                   @click.native="delConfigVariable('test',scope.$index)">删除
+                                                   @click.native="delConfigVariable('first',scope.$index)">删除
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -96,7 +96,7 @@
                                 <el-table-column label="操作" header-align="center" width="80">
                                     <template slot-scope="scope">
                                         <el-button type="danger" icon="el-icon-delete" size="mini"
-                                                   @click.native="delConfigVariable('develop',scope.$index)">删除
+                                                   @click.native="delConfigVariable('second',scope.$index)">删除
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -125,7 +125,7 @@
                                 <el-table-column label="操作" header-align="center" width="80">
                                     <template slot-scope="scope">
                                         <el-button type="danger" icon="el-icon-delete" size="mini"
-                                                   @click.native="delConfigVariable('production', scope.$index)">删除
+                                                   @click.native="delConfigVariable('third', scope.$index)">删除
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -154,7 +154,7 @@
                                 <el-table-column label="操作" header-align="center" width="80">
                                     <template slot-scope="scope">
                                         <el-button type="danger" icon="el-icon-delete" size="mini"
-                                                   @click.native="delConfigVariable('standby',scope.$index)">删除
+                                                   @click.native="delConfigVariable('fourth',scope.$index)">删除
                                         </el-button>
                                     </template>
                                 </el-table-column>
@@ -227,14 +227,14 @@
                 }
             },
             delConfigVariable(type, i) {
-                if (type === 'test') {
-                    this.config.configTest.splice(i, 1);
-                } else if (type === 'develop') {
-                    this.config.configDevelop.splice(i, 1);
-                } else if (type === 'production') {
-                    this.config.configProduction.splice(i, 1);
-                } else if (type === 'standby') {
-                    this.config.configStandby.splice(i, 1);
+                if (type === 'first') {
+                    this.configData.configTest.splice(i, 1);
+                } else if (type === 'second') {
+                    this.configData.configDevelop.splice(i, 1);
+                } else if (type === 'third') {
+                    this.configData.configProduction.splice(i, 1);
+                } else if (type === 'fourth') {
+                    this.configData.configStandby.splice(i, 1);
                 }
             },
             dealConfigList(data) {
