@@ -412,7 +412,7 @@
                     choiceUrl: '基础url1',
                     choiceType: 'data',
                 },
-                comparators: [{'value': 'equals'}, {'value': 'less_than'}, {'value': 'less_than_or_equals'},
+                comparators: [{'value': 'contains'}, {'value': 'equals'}, {'value': 'less_than'}, {'value': 'less_than_or_equals'},
                     {'value': 'greater_than'}, {'value': 'greater_than_or_equals'}, {'value': 'not_equals'},
                     {'value': 'string_equals'}, {'value': 'length_equals'}, {'value': 'length_greater_than'},
                     {'value': 'count_greater_than_or_equals'}, {'value': 'length_less_than'},
@@ -668,8 +668,7 @@
                     if (i - this.cell.scrollHeight === 2) {
                         //  为true时，为减少高度操作
                         this.cell.style.height = (i - 18) + 'px'
-                    }
-                    else {
+                    } else {
                         this.cell.style.height = this.cell.scrollHeight + 'px';
                     }
 
