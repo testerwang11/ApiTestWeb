@@ -50,6 +50,11 @@
                             minWidth="50">
                     </el-table-column>
                     <el-table-column
+                            prop="taskName"
+                            label="任务名称"
+                            minWidth="50">
+                    </el-table-column>
+                    <el-table-column
                             prop="envData"
                             label="执行环境"
                             minWidth="50">
@@ -156,7 +161,7 @@
             initData() {
                 this.$axios.get(this.$api.baseDataApi).then((response) => {
                     if (response.data['user_pro']){
-                        this.form.projectName = response.data['user_pro']['pro_name'];
+                        //this.form.projectName = response.data['user_pro']['pro_name'];
                         this.findReport()
                     }
                         this.proData = response.data['pro_and_id'];
@@ -270,8 +275,6 @@
         mounted() {
             this.initData();
             // this.findReport();
-
-
         },
     }
 </script>

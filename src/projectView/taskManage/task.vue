@@ -35,6 +35,11 @@
                     <!--min-width="40">-->
                     <!--</el-table-column>-->
                     <el-table-column
+                            prop="project_name"
+                            label="项目名称"
+                            min-width="100">
+                    </el-table-column>
+                    <el-table-column
                             prop="task_name"
                             label="任务名称"
                             min-width="100">
@@ -42,6 +47,11 @@
                     <el-table-column
                             prop="task_config_time"
                             label="cron"
+                            min-width="100">
+                    </el-table-column>
+                    <el-table-column
+                            prop="environment"
+                            label="执行环境"
                             min-width="100">
                     </el-table-column>
                     <el-table-column
@@ -249,7 +259,7 @@
             httpSend() {
                 this.$axios.get(this.$api.baseDataApi).then((response) => {
                         if (response.data['user_pro']) {
-                            this.form.projectName = response.data['user_pro']['pro_name'];
+                            //this.form.projectName = response.data['user_pro']['pro_name'];
                             this.findTask();
                         }
                         this.proModelData = response.data['pro_and_id'];
