@@ -132,7 +132,7 @@
                             <el-radio v-model="taskData.environment" label="fourth">准生产环境</el-radio>
                         </el-form-item>
                         <el-form-item label="执行选择" :label-width="taskData.formLabelWidth">
-                            <el-select v-model="form.projectName" placeholder="选择项目"
+                            <el-select v-model="taskData.projectName" placeholder="选择项目"
                                        style="width: 150px;padding-right:5px"
                                        @change="changeProjectChoice">
                                 <el-option
@@ -146,7 +146,7 @@
                                        @change="changeSceneChoice"
                                        style="width: 150px;padding-right:5px">
                                 <el-option
-                                        v-for="item in allSetList[this.form.projectName]"
+                                        v-for="item in allSetList[taskData.projectName]"
                                         :key="item.id"
                                         :label="item.label"
                                         :value="item">
@@ -364,13 +364,13 @@
                 this.$axios.post(this.$api.editTaskApi, {'id': id}).then((response) => {
                         this.taskData.name = response.data['data']['task_name'];
                         this.taskData.timeConfig = response.data['data']['task_config_time'];
-                        // this.form.projectName = response.data['data']['project_name'];
+                        this.taskData.projectName = response.data['data']['project_name'];
                         this.taskData.taskType = response.data['data']['task_type'];
                         this.taskData.toEmail = response.data['data']['task_to_email_address'];
                         //this.taskData.SendEmail = response.data['data']['task_send_email_address'];
                         //this.taskData.password = response.data['data']['password'];
                         this.taskData.num = response.data['data']['num'];
-                        this.taskData.projectName = this.form.projectName;
+                        //this.taskData.projectName = this.form.projectName;
                         this.taskData.id = id;
                         this.form.set = response.data['data']['set_ids'];
                         this.taskData.noticeType = response.data['data']['notice_type'];
