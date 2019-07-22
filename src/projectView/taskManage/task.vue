@@ -328,7 +328,7 @@
             },
             addTask() {
                 this.$axios.post(this.$api.addTaskApi, {
-                    'projectName': this.form.projectName,
+                    'projectName': this.taskData.projectName,
                     'setIds': this.form.set,
                     'caseIds': this.form.case,
                     'id': this.taskData.id,
