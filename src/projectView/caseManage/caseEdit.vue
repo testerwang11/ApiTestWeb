@@ -30,10 +30,10 @@
                         </el-form-item>
                     </el-form>
                     <el-form :inline="true" size="small">
-                        <el-form-item label="用例描述" :label-width="caseData.formLabelWidth">
+                        <!--<el-form-item label="用例描述" :label-width="caseData.formLabelWidth">
                             <el-input v-model="caseData.desc" style="width: 150px" type="textarea" autosize  placeholder="请输入用例描述">
                             </el-input>
-                        </el-form-item>
+                        </el-form-item>-->
 
                         <el-form-item label="集合选择" :label-width="caseData.formLabelWidth">
                             <el-select v-model="form.set" placeholder="请选择用例集" value-key="id"
@@ -49,6 +49,12 @@
                         <el-form-item label="执行次数" label-width="70px">
                             <el-input-number v-model="caseData.times" :min="1" :max="1000">
                             </el-input-number>
+                        </el-form-item>
+                    </el-form>
+                    <el-form :inline="true" size="small">
+                        <el-form-item label="用例描述" label-width="caseData.formLabelWidth">
+                            <el-input v-model="caseData.desc"  type="textarea"  :autosize="{ minRows: 2, maxRows: 4}" style="width: 400px" placeholder="请输入用例描述">
+                            </el-input>
                         </el-form-item>
                     </el-form>
                     <!--<hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -5px"/>-->
