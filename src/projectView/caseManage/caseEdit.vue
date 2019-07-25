@@ -31,7 +31,7 @@
                     </el-form>
                     <el-form :inline="true" size="small">
                         <el-form-item label="用例描述" :label-width="caseData.formLabelWidth">
-                            <el-input v-model="caseData.desc" style="width: 150px">
+                            <el-input v-model="caseData.desc" style="width: 150px" type="textarea" autosize  placeholder="请输入用例描述">
                             </el-input>
                         </el-form-item>
 
@@ -51,7 +51,7 @@
                             </el-input-number>
                         </el-form-item>
                     </el-form>
-                    <hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -5px"/>
+                    <!--<hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -5px"/>-->
 <!--                    <el-form :inline="true" class="demo-form-inline " size="small">
                         <el-form-item label=" " labelWidth="10px">
                             <el-select v-model="form.sceneVariableProjectName" placeholder="请选择项目"
@@ -196,8 +196,8 @@
                                                        @click.native="delApiCase(index)">删除
                                             </el-button>
                                             <el-button type="primary" size="mini"
-                                                       @click.native="apiMessageEditFuncInit(index)">
-                                                配置
+                                                       @click.native="apiMessageEditFuncInit(index)">配置
+
                                             </el-button>
                                         </el-col>
                                     </el-row>
