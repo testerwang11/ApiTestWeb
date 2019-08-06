@@ -341,8 +341,8 @@
 
             <div slot="footer" class="dialog-footer">
                 <el-button @click="caseData.modelFormVisible = false" size="small">取 消</el-button>
-                <el-button type="success" @click.native="addCase(false)" size="small">保 存</el-button>
-                <el-button type="primary" @click.native="addCase()" size="small">确 定</el-button>
+                <!--<el-button type="success" @click.native="addCase(false)" size="small">保 存</el-button>-->
+                <el-button type="primary" @click.native="addCase()" size="small">保 存</el-button>
             </div>
         </el-dialog>
 
