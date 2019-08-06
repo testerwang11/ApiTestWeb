@@ -36,8 +36,23 @@
                     </el-table-column>
                     <el-table-column
                             prop="name"
-                            label="模块名称"
+                            label="配置名称"
                             min-width="250">
+                    </el-table-column>
+                    <el-table-column
+                            prop="create_time"
+                            label="创建时间"
+                            min-width="250">
+                    </el-table-column>
+                    <el-table-column
+                            prop="update_time"
+                            label="修改时间"
+                            min-width="250">
+                    </el-table-column>
+                    <el-table-column
+                            prop="owner"
+                            label="创建人"
+                            min-width="150">
                     </el-table-column>
                     <el-table-column
                             label="操作"

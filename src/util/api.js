@@ -24,6 +24,9 @@ const loginApi = '/api/login';
 const logoutApi = '/api/logout';
 const registerApi = '/api/register';
 const changePasswordApi = '/api/changePassword';
+const changeNormalProject = '/api/user/changeNormalProject';
+const getProjects = '/api/user/queryProjects'
+
 
 const findApiApi = '/api/apiMsg/find';
 const delApiApi = '/api/apiMsg/del';
@@ -53,6 +56,7 @@ const runCaseApi = '/api/report/run';
 const editCaseApi = '/api/case/edit';
 const addCaseApi = '/api/case/add';
 const configDataApi = '/api/config/data';
+const reportTest = '/api/report/chart';
 
 
 const fileUploadingApi = '/api/upload';
@@ -129,6 +133,8 @@ export default {
     logoutApi,
     registerApi,
     changePasswordApi,
+    changeNormalProject,
+    getProjects,
 
     findApiApi,
     delApiApi,
@@ -139,4 +145,6 @@ export default {
 
     fileUploadingApi,
     importApiApi,
+
+    reportTest,
 }

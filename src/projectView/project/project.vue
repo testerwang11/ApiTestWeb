@@ -101,16 +101,16 @@
                         </el-form-item>
                         <el-form-item label="负责人" label-width="60px">
                             <el-select v-model="form.users" multiple size="mini"
-                                       style="width: 100px">
+                                       style="width: 150px">
                                 <el-option
                                         v-for="item in userData"
                                         :key="item.id"
                                         :label="item.label"
-                                        :value="item.label">
+                                        :value="item.id">
                                 </el-option>
                             </el-select>
                         </el-form-item>
-                        <el-form-item label="函数文件" :label-width="projectData.formLabelWidth">
+<!--                        <el-form-item label="函数文件" :label-width="projectData.formLabelWidth">
                             <el-select v-model="projectData.funcFile" placeholder="请选择导入函数文件" size="mini" clearable>
                                 <el-option
                                         v-for="item in funcAddress"
@@ -119,7 +119,7 @@
                                         :value="item.value">
                                 </el-option>
                             </el-select>
-                        </el-form-item>
+                        </el-form-item>-->
 
                     </el-form>
                     <hr style="height:1px;border:none;border-top:1px solid rgb(241, 215, 215);margin-top: -10px"/>
@@ -406,7 +406,6 @@
                 }
             },
             addProject() {
-                console.log(this.form.users);
                     this.$axios.post(this.$api.addProApi, {
                         'projectName': this.projectData.projectName,
                         'principal': this.projectData.principal,

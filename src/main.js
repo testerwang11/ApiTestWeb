@@ -32,6 +32,7 @@ Vue.use(ElementUI);
 Vue.use(contentmenu);
 // Vue.use(VueResource);
 // Vue.use(VueClipboard);
+axios.defaults.timeout = 6000;
 new Vue({
     router,
     store,

@@ -17,6 +17,7 @@ import taskManage from './projectView/taskManage/task.vue'
 import user from './projectView/userManage/user.vue'
 import sceneConfig from './projectView/config/config.vue'
 import login from './login/login.vue'
+import reportChart from './projectView/report/reportChart.vue'
 
 Vue.use(VueRouter);
 
@@ -95,6 +96,16 @@ const routes = [
                 components: {
                     Header: reportHeader,
                     Manage: reportShow,
+                }
+            },
+{
+                path: 'reportChart',
+                meta: {
+                    requireAuth: true,
+                },
+                components: {
+                    Header: reportHeader,
+                    Manage: reportChart,
                 }
             },
             {

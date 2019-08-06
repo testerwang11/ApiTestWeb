@@ -19,6 +19,7 @@
                         <span class="el-dropdown-link">{{userName}}<i
                                 class="el-icon-arrow-down el-icon--right"></i></span>
                         <el-dropdown-menu slot="dropdown" style="line-height:10px">
+                            <el-dropdown-item command="c">常用项目</el-dropdown-item>
                             <el-dropdown-item command="b">修改密码</el-dropdown-item>
                             <el-dropdown-item command="a">退出系统</el-dropdown-item>
                         </el-dropdown-menu>
@@ -30,6 +31,7 @@
                 <!--</el-footer>-->
             </el-container>
         </el-container>
+
         <el-dialog
                 title="修改密码"
                 :visible.sync="passwordData.formVisible"
@@ -37,7 +39,6 @@
                 customClass="password-style"
         >
             <el-form>
-
                 <el-form-item label="旧密码" :label-width="passwordData.formLabelWidth">
                     <el-input v-model="passwordData.oldPassword" type="password">
                     </el-input>
@@ -54,6 +55,29 @@
             <span slot="footer" class="dialog-footer">
                     <el-button @click="passwordData.formVisible = false" size="small">取 消</el-button>
                     <el-button type="primary" @click.native="changePassword()" size="small">确 定</el-button>
+                </span>
+        </el-dialog>
+
+        <el-dialog
+                title="设置常用项目"
+                :visible.sync="projectData.formVisible"
+                width="30%"
+                customClass="password-style"
+        >
+            <el-form>
+                <el-form-item label="设置项目" :label-width="projectData.formLabelWidth">
+                    <el-select v-model="projectData.project_id" placeholder="请选择项目">
+                    <el-option
+                            v-for="(item) in projectData.proAndIdData"
+                            :label="item.project_name"
+                            :value="item.project_id">
+                    </el-option>
+                </el-select>
+                </el-form-item>
+            </el-form>
+            <span slot="footer" class="dialog-footer">
+                    <el-button @click="projectData.formVisible = false" size="small">取 消</el-button>
+                    <el-button type="primary" @click.native="changeProject()" size="small">确 定</el-button>
                 </span>
         </el-dialog>
     </div>
@@ -76,6 +100,12 @@
                     formVisible: false,
                     formLabelWidth: '80px',
                 },
+                projectData: {
+                    project_id: '',
+                    formVisible: false,
+                    formLabelWidth: '80px',
+                    proAndIdData: '',
+                }
             }
         },
         methods: {
@@ -90,7 +120,6 @@
                         'oldPassword': this.passwordData.oldPassword,
                         'newPassword': this.passwordData.newPassword,
                         'surePassword': this.passwordData.surePassword,
-
                     }).then((response) => {
                         if (this.messageShow(this, response)) {
                             this.passwordData.formVisible = false;
@@ -109,56 +138,47 @@
                                     message: response.data['msg'],
                                     type: 'warning',
                                 });
-                            }
-                            else {
+                            } else {
                                 this.tableData = response.data['msg'];
                             }
                         }
                     );
-                }
-                else if (command === 'b') {
+                } else if (command === 'b') {
                     this.passwordData.oldPassword = '';
                     this.passwordData.newPassword = '';
                     this.passwordData.surePassword = '';
                     this.passwordData.formVisible = true;
+                } else if (command === 'c') {
+                    this.projectData.project_id = '';
+                    this.projectData.formVisible = true;
                 }
             },
 
             showTitle(path) {
                 if (path === '/manage/projectManage') {
                     this.title = ['接口管理', '项目管理']
-                }
-                else if (path === '/manage/caseManage') {
+                } else if (path === '/manage/caseManage') {
                     this.title = ['接口管理', '接口信息']
-                }
-                else if (path === '/manage/sceneConfig') {
+                } else if (path === '/manage/sceneConfig') {
                     this.title = ['接口管理', '业务配置']
-                }
-                else if (path === '/manage/sceneManage') {
+                } else if (path === '/manage/sceneManage') {
                     this.title = ['接口管理', '接口用例']
-                }
-                else if (path === '/manage/buildInFunc') {
+                } else if (path === '/manage/buildInFunc') {
                     this.title = ['接口管理', '内置函数']
-                }
-                else if (path === '/manage/reportManage') {
+                } else if (path === '/manage/reportManage') {
                     this.title = ['报告管理', '接口报告']
-                }
-                else if (path === '/manage/taskManage') {
+                } else if (path === '/manage/taskManage') {
                     this.title = ['报告管理', '定时任务']
-                }
-                else if (path === '/manage/userManage') {
+                } else if (path === '/manage/userManage') {
                     this.title = ['系统管理', '用户管理']
-                }
-
-                else if (path === '/manage/testTool') {
+                } else if (path === '/manage/testTool') {
                     this.title = ['其他程序', '测试小工具']
-                }
-
-                else if (path === '/manage/batch') {
+                } else if (path === '/manage/batch') {
                     this.title = ['其他程序', '批量操作']
-                }
-                else if (path === '/manage/sqlCheck') {
+                } else if (path === '/manage/sqlCheck') {
                     this.title = ['其他程序', '数据库查询']
+                }else if (path === '/manage/report') {
+                    this.title = ['报告管理', '数据汇总']
                 }
 
 
@@ -166,10 +186,33 @@
             getTitle: function () {
                 this.showTitle(this.$route.path);
             },
+
+            changeProject() {
+                // this.$store.state.userName = this.userName;
+                this.$axios.post(this.$api.changeNormalProject,
+                    {
+                        'project_id': this.projectData.project_id,
+                    }).then((response) => {
+                        if (this.messageShow(this, response)) {
+                            this.projectData.formVisible = false;
+                        }
+                    }
+                );
+            },
+
+            getProjectList: function () {
+                this.$axios.post(this.$api.getProjects,
+                    ).then((response) => {
+                        if (this.messageShow(this, response)) {
+                            this.projectData.proAndIdData = response.data['projects'];
+                            console.log(this.projectData.proAndIdData)
+                        }
+                    }
+                );
+            }
         },
         watch: {
             "$route": function (to) {
-
                 this.showTitle(to.path);
                 //from 对象中包含当前地址
                 //to 对象中包含目标地址
@@ -179,6 +222,7 @@
         mounted() {
             this.getTitle();
             this.getUserName()
+            this.getProjectList()
         },
     }
 </script>

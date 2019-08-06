@@ -36,7 +36,8 @@
                             </el-input>
                         </el-form-item>
                         <el-form-item>
-                            <el-button type="primary" size="small" @click="addConfigVariable()">添加变量</el-button>
+                            <el-button type="primary" size="small" @click="addConfigVariable(configChoice)">添加变量
+                            </el-button>
                         </el-form-item>
                     </el-form>
 
@@ -178,12 +179,6 @@
         data() {
             return {
                 configChoice: 'first',
-                /*config: {
-                    configTest: [{key: null, value: null, remark: null}],
-                    configDevelop: [{key: null, value: null, remark: null}],
-                    configProduction: [{key: null, value: null, remark: null}],
-                    configStandby: [{key: null, value: null, remark: null}],
-                },*/
                 configData: {
                     funcAddress: Array(),
                     id: null,
@@ -212,17 +207,17 @@
                 this.configData.num = null;
                 this.configData.modelFormVisible = true;
             },
-            addConfigVariable() {
-                if (this.configChoice === 'first') {
+            addConfigVariable(type) {
+                if (type === 'first') {
                     this.configData.configTest.push({key: null, value: null, remark: null});
                 }
-                if (this.configChoice === 'second') {
+                if (type === 'second') {
                     this.configData.configDevelop.push({key: null, value: null, remark: null});
                 }
-                if (this.configChoice === 'third') {
+                if (type === 'third') {
                     this.configData.configProduction.push({key: null, value: null, remark: null});
                 }
-                if (this.configChoice === 'fourth') {
+                if (type === 'fourth') {
                     this.configData.configStandby.push({key: null, value: null, remark: null});
                 }
             },
@@ -237,29 +232,7 @@
                     this.configData.configStandby.splice(i, 1);
                 }
             },
-            dealConfigList(data) {
-                // 把[{value:xxx1},{value:xxx2}] 转为 [xxx1,xxx2]111
-                let config = Array();
-                for (let i = 0; i < data.length; i++) {
-                    if (data[i].value) {
-                        config.push(data[i].value);
-                    }
-                }
-                return config
-            },
-
-            dealConfifDict(data) {
-                // 把[xxx1,xxx2] 转为 [{value:xxx1},{value:xxx2}]
-                let config = Array();
-                if (!data) {
-                    return config
-                }
-                for (let i = 0; i < data.length; i++) {
-                    config.push({value: data[i]});
-                }
-                return config
-            },
-            addTableRow(type) {
+            /*addTableRow(type) {
                 if (type === 'test') {
                     this.configData.configTest.push({key: null, value: null, remark: null});
                 } else if (type === 'develop') {
@@ -269,7 +242,7 @@
                 } else if (type === 'standby') {
                     this.configData.configStandby.push({key: null, value: null, remark: null});
                 }
-            },
+            },*/
             addSceneConfig() {
                 this.$axios.post(this.$api.addConfigApi, {
                     'projectName': this.configData.projectName,
@@ -320,8 +293,6 @@
                 )
             },
             handleClick(tab, event) {
-                //console.log(tab, event);
-                //console.log(event.target.getAttribute('id'))  //获取到当前元素的id
                 let id = event.target.getAttribute('id');
                 if (id == 'tab-first') {
                     this.configChoice = 'first';
@@ -334,52 +305,67 @@
                 }
             },
         },
-        /*        watch: {
-                    monitorConfigTest: {
-                        handler: function () {
-                            if (this.configData.configTest.length === 0) {
-                                this.addConfigVariable('one')
-                            }
-                            if (this.configData.configTest[this.configData.configTest.length - 1]['value']) {
-                                this.addConfigVariable('one')
-                            }
-                        },
-                        deep: true
-                    },
-                    monitorConfigDevelop: {
-                        handler: function () {
-                            if (this.configData.configDevelop.length === 0) {
-                                this.addConfigVariable('two')
-                            }
-                            if (this.configData.configDevelop[this.configData.configDevelop.length - 1]['value']) {
-                                this.addConfigVariable('two')
-                            }
-                        },
-                        deep: true
-                    },
-                    monitorConfigProduction: {
-                        handler: function () {
-                            if (this.configData.configProduction.length === 0) {
-                                this.addConfigVariable('three')
-                            }
-                            if (this.configData.configProduction[this.configData.configProduction.length - 1]['value']) {
-                                this.addConfigVariable('three')
-                            }
-                        },
-                        deep: true
-                    },
-                    monitorConfigStandby: {
-                        handler: function () {
-                            if (this.configData.configStandby.length === 0) {
-                                this.addConfigVariable('four')
-                            }
-                            if (this.configData.configStandby.length[this.configData.configStandby.length - 1]['value']) {
-                                this.addConfigVariable('four')
-                            }
-                        },
-                        deep: true
-                    },
-                },*/
+        computed: {
+            monitorConfigTest() {
+                return this.configData.configTest;
+            },
+            monitorConfigDevelop() {
+                return this.configData.configDevelop;
+            },
+            monitorConfigProduction() {
+                return this.configData.configProduction;
+            },
+            monitorConfigStandby() {
+                return this.configData.configStandby;
+            },
+        },
+        watch: {
+            monitorConfigTest: {
+                handler: function () {
+                    this.configChoice = 'first'
+                    if (this.configData.configTest.length === 0) {
+                        this.addConfigVariable('first')
+                    }
+                    if (this.configData.configTest[this.configData.configTest.length - 1]['value']) {
+                        this.addConfigVariable('first')
+                    }
+                },
+                deep: true
+            },
+            monitorConfigDevelop: {
+                handler: function () {
+                    if (this.configData.configDevelop.length === 0) {
+                        this.addConfigVariable('second')
+                    }
+                    if (this.configData.configDevelop[this.configData.configDevelop.length - 1]['value']) {
+                        this.addConfigVariable('second')
+                    }
+                },
+                deep: true
+            },
+            monitorConfigProduction: {
+                handler: function () {
+                    if (this.configData.configProduction.length === 0) {
+                        this.addConfigVariable('third')
+                    }
+                    if (this.configData.configProduction[this.configData.configProduction.length - 1]['value']) {
+                        this.addConfigVariable('third')
+                    }
+                },
+                deep: true
+            },
+            monitorConfigStandby: {
+                handler: function () {
+                    if (this.configData.configStandby.length === 0) {
+                        this.addConfigVariable('fourth')
+                    }
+                    if (this.configData.configStandby[this.configData.configStandby.length - 1]['value']) {
+                        this.addConfigVariable('fourth')
+                    }
+                },
+                deep: true
+            },
+        },
         mounted() {
         },
     }

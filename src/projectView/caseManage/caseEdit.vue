@@ -53,7 +53,7 @@
                     </el-form>
                     <el-form :inline="true" size="small">
                         <el-form-item label="用例描述" label-width="caseData.formLabelWidth">
-                            <el-input v-model="caseData.desc"  type="textarea"  :autosize="{ minRows: 2, maxRows: 4}" style="width: 400px" placeholder="请输入用例描述">
+                            <el-input v-model="caseData.desc"  type="textarea"  :autosize="{ minRows: 2, maxRows: 8}" style="width: 400px" placeholder="请输入用例描述">
                             </el-input>
                         </el-form-item>
                     </el-form>

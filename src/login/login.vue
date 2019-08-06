@@ -24,7 +24,7 @@
                                 司机宝测试平台
                             </p>
                         </div>
-                        <el-card shadow="never">
+                        <el-card shadow="never" >
                             <el-form ref="loginForm" label-position="top" size="default">
                                 <el-form-item>
                                     <el-input type="text" v-model="account" placeholder="用户名">
@@ -43,16 +43,14 @@
                         </el-card>
                         <p class="page-login--options"
                            flex="main:justify cross:center">
-                            <el-tooltip class="item" effect="dark" content="请联系管理员重置密码" placement="bottom">
-                                <span> 忘记密码</span>
-                            </el-tooltip>
+                                <span> 请使用ldap账号登录</span>
                         </p>
                     </div>
                 </div>
                 <div class="page-login--content-footer">
 
                     <p class="page-login--content-footer-copyright">
-                        @司机宝
+                        2019@司机宝
                     </p>
 
                 </div>

@@ -140,6 +140,24 @@
                                     label="接口地址">
                             </el-table-column>
                             <el-table-column
+                                    :show-overflow-tooltip=true
+                                    prop="owner"
+                                    label="创建人"
+                                    width="150">
+                            </el-table-column>
+                            <el-table-column
+                                    :show-overflow-tooltip=true
+                                    prop="createTime"
+                                    label="创建时间"
+                                    width="180">
+                            </el-table-column>
+                            <el-table-column
+                                    :show-overflow-tooltip=true
+                                    prop="updateTime"
+                                    label="更新时间"
+                                    width="180">
+                            </el-table-column>
+                            <el-table-column
                                     label="操作"
                                     width="320">
                                 <template slot-scope="scope">

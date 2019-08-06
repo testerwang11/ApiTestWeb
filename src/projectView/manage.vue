@@ -77,8 +77,7 @@
                             </template>
                             <el-menu-item-group >
                                 <el-menu-item index="/manage/userManage">用户管理</el-menu-item>
-
-
+                                <!--<el-menu-item index="/manage/report">数据汇总</el-menu-item>-->
                                 <!--<el-menu-item index="/manage/batch">批量添加</el-menu-item>-->
                             </el-menu-item-group>
                         </el-submenu>
