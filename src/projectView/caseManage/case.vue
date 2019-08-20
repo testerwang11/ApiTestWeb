@@ -91,12 +91,32 @@
                             <el-table-column
                                     prop="name"
                                     label="名称"
-                                    min-width="50">
+                                    min-width="40">
                             </el-table-column>
                             <el-table-column
                                     prop="desc"
                                     label="描述"
                                     min-width="50">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="owner"
+                                    label="创建人"
+                                    min-width="25">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="update_user"
+                                    label="更新人"
+                                    min-width="25">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="createTime"
+                                    label="创建时间"
+                                    min-width="35">
+                            </el-table-column>
+                            <el-table-column
+                                    prop="updateTime"
+                                    label="更新时间"
+                                    min-width="35">
                             </el-table-column>
                             <el-table-column
                                     label="操作">
@@ -314,7 +334,7 @@
                     }
                 )
             },
-            runScene(sceneIds, status = false, reportStatus = false, env='first') {
+            runScene(sceneIds, status = false, reportStatus = false, env = 'first') {
                 //  status，为true时，批量运行用例，为false运行单用例
                 //  reportStatus，为true时生成报告，为false时返回临时数据
                 let _sceneIds = [];
@@ -339,7 +359,7 @@
                     'reportStatus': reportStatus,
                     'sceneIds': _sceneIds,
                     'projectName': this.form.projectName,
-                    'envValue':env,
+                    'envValue': env,
                 }).then((response) => {
                         this.loading = false;
                         if (response.data['status'] === 0) {
