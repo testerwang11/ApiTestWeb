@@ -126,38 +126,14 @@
 
 <script>
     export default {
-        name: 'reportManage',
+        name: 'chart',
         data() {
             return {
-                proData: '',
-                tableData: [],
-                total: 1,
-                currentPage: 1,
-                sizePage: 20,
-                form: {
-                    projectName: '',
-                    gathers: [],
-                    scenes: [],
-                },
-                reportData: {
-                    'data': {'records': []},
-                    'body': {
-                        'platform': {'duration': '', 'python_version': ''},
-                        'stat': {'skipped': '', 'testsRun': '', 'successes': '', 'failures': '', 'errors': ''}
-                    },
-
-                },
+                proData: ''
             }
         },
         methods: {
-            handleCurrentChange(val) {
-                this.currentPage = val;
-                this.findReport()
-            },
-            handleSizeChange(val) {
-                this.sizePage = val;
-                this.findReport()
-            },
+
             initData() {
                 this.$axios.get(this.$api.baseDataApi).then((response) => {
                     if (response.data['user_pro']){

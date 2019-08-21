@@ -671,7 +671,6 @@
                     } else {
                         this.cell.style.height = this.cell.scrollHeight + 'px';
                     }
-
                 }
             },
             delTableRow(type, i) {

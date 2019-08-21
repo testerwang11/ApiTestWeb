@@ -162,20 +162,14 @@
                             <tr v-show="statusShow[4]">
                                 <td class="my-table">json</td>
                                 <td class="content">
-                                    <pre style="overflow: auto">{{this.meta_datas.data[0].request.body}}</pre>
-                                </td>
-                            </tr>
-                            <!--<tr v-show="statusShow[4]">
-                                <td class="my-table">json</td>
-                                <td class="content">
-                                    &lt;!&ndash;<pre style="overflow: auto">{{this.meta_data['request']['body']}}</pre>&ndash;&gt;
+                                    <!--<pre style="overflow: auto">{{this.meta_data['request']['body']}}</pre>-->
                                     <pre style="white-space: pre-wrap;word-wrap: break-word;">{{this.meta_datas.data[0].request.json}}</pre>
                                 </td>
                             </tr>
                             <tr v-show="statusShow[5]">
                                 <td class="my-table">data</td>
                                 <td class="content">
-                                    &lt;!&ndash;<pre style="overflow: auto">{{this.meta_data['request']['data']}}</pre>&ndash;&gt;
+                                    <!--<pre style="overflow: auto">{{this.meta_data['request']['data']}}</pre>-->
                                     <pre style="overflow: auto">{{optimizeShow(this.meta_datas.data[0].request.data)}}</pre>
 
                                 </td>
@@ -185,8 +179,8 @@
                                 <td class="content">
                                     <pre>{{optimizeShow(this.meta_datas.data[0].request.params)}}</pre>
                                 </td>
-                            </tr>-->
-                            <tr v-show="statusShow[5]">
+                            </tr>
+                            <tr v-show="statusShow[7]">
                                 <td class="my-table">resp_headers</td>
                                 <td class="content">
                                     <pre style="overflow: auto">{{optimizeShow(this.meta_datas.data[0].response.headers)}}</pre>
@@ -194,16 +188,16 @@
                                 </td>
                             </tr>
 
-                            <tr v-show="statusShow[6]">
+                            <tr v-show="statusShow[8]">
                                 <td class="my-table">resp_data</td>
                                 <td class="content">
-                                    <pre style="white-space: pre-wrap;word-wrap: break-word;">{{formatJSON(this.meta_datas.data[0].response.json)}}</pre>
+                                    <pre style="white-space: pre-wrap;word-wrap: break-word;">{{this.meta_datas.data[0].response.json}}</pre>
                                     <!--<pre v-show="this.meta_data['response']['json'] !== ''"-->
-                                    <!--style="white-space: pre-wrap;word-wrap: break-word;">{{this.meta_data['response']['content']}}</pre>-->
+                                         <!--style="white-space: pre-wrap;word-wrap: break-word;">{{this.meta_data['response']['content']}}</pre>-->
                                 </td>
                             </tr>
 
-                            <tr v-show="statusShow[7]">
+                            <tr v-show="statusShow[8]">
                                 <td class="my-table">resp_text</td>
                                 <td class="content">
                                     <pre style="white-space: pre-wrap;word-wrap: break-word;">{{this.meta_datas.data[0].response.text}}</pre>
@@ -289,12 +283,10 @@
                 statusShow: [true, true, true, true, true, true, true, true, true],
                 showColor: [],
                 attachment: '',
-                meta_datas: {
-                    data: [{
+                meta_datas: {data:[{
                         request: {body: null, url: null, headers: null, data: null, params: null, json: null},
-                        response: {content: null, json: null, status_code: null}
-                    }]
-                },
+                        response: {content: null, json: null,status_code:null}
+                    }]},
                 caseChartData: {
                     columns: ['caseName', 'num'],
                     rows: [
@@ -329,7 +321,7 @@
                         },
                         'testcases': {'fail': '', 'success': '', 'total': '',},
                     },
-                    'time': {'start_at': '', 'duration': 1, 'start_datetime': ''}
+                    'time': {'start_at': '', 'duration': 1,'start_datetime':''}
                     ,
                 },
             }
@@ -353,15 +345,12 @@
             },
             optimizeShow(dict) {
                 if (dict) {
-                    let line = '';
+                    let line='';
                     for (let key in dict) {
                         line = line + key + ':' + dict[key] + '\n'
                     }
                     return line
                 }
-            },
-            formatJSON(str) {
-               return JSON.stringify(str)
             },
             showInfo() {
                 this.statusShow = [true, true, true, false, false, false, false, false, true];
